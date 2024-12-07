@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Socket on Gwen&#39;s Blog</title>
+    <link>https://gwen0x4c3.github.io/blog/tags/socket/</link>
+    <description>Recent content in Socket on Gwen&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    
+    <lastBuildDate>Mon, 11 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://gwen0x4c3.github.io/blog/tags/socket/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>C&#43;&#43;与Java Socket通信使用Protobuf</title>
+      <link>https://gwen0x4c3.github.io/blog/posts/java/c&#43;&#43;%E4%B8%8Ejava-socket%E9%80%9A%E4%BF%A1%E4%BD%BF%E7%94%A8protobuf/</link>
+      <pubDate>Mon, 11 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://gwen0x4c3.github.io/blog/posts/java/c&#43;&#43;%E4%B8%8Ejava-socket%E9%80%9A%E4%BF%A1%E4%BD%BF%E7%94%A8protobuf/</guid>
+      <description>C++ 使用 Socket 连接 Java 端的 Netty 服务器</description>
+      
+    </item>
+    
+  </channel>
+</rss>

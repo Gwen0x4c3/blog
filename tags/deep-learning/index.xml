@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Deep-Learning on Gwen&#39;s Blog</title>
+    <link>https://gwen0x4c3.github.io/blog/tags/deep-learning/</link>
+    <description>Recent content in Deep-Learning on Gwen&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    
+    <lastBuildDate>Mon, 22 Apr 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://gwen0x4c3.github.io/blog/tags/deep-learning/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>SegmentAnything官网demo使用vue&#43;python实现</title>
+      <link>https://gwen0x4c3.github.io/blog/posts/project/segmentanything%E5%AE%98%E7%BD%91demo%E4%BD%BF%E7%94%A8vue&#43;python%E5%AE%9E%E7%8E%B0/</link>
+      <pubDate>Mon, 22 Apr 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://gwen0x4c3.github.io/blog/posts/project/segmentanything%E5%AE%98%E7%BD%91demo%E4%BD%BF%E7%94%A8vue&#43;python%E5%AE%9E%E7%8E%B0/</guid>
+      <description>SegmentAnything官网demo使用vue+python实现</description>
+      
+    </item>
+    
+  </channel>
+</rss>

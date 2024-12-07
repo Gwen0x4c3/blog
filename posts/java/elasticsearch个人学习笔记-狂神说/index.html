@@ -1,0 +1,3492 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="scroll-smooth" data-default-appearance="light"
+  data-auto-appearance="true"><head>
+  <meta charset="utf-8" />
+  
+  <meta http-equiv="content-language" content="en" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  
+  <title>ElasticSearch个人学习笔记 狂神说 &middot; Gwen&#39;s Blog</title>
+  <meta name="title" content="ElasticSearch个人学习笔记 狂神说 &middot; Gwen&#39;s Blog" />
+  
+  <meta name="description" content="ElasicSearch 学习笔记，附带京东搜索商品小demo" />
+  <meta name="keywords" content="elasticsearch, springboot, middleware, " />
+  
+  
+  <link rel="canonical" href="https://gwen0x4c3.github.io/blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/" />
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <link type="text/css" rel="stylesheet" href="/blog/css/main.bundle.min.acf9f80dd36be5205d43ebad5d763c2d95be1dc9c8e227e47fee9baaaca9c4c68a1bf3af34cc1e3aac97544ecc3ab06d5446bce23034f57a9ee62256fed5d48a.css"
+    integrity="sha512-rPn4DdNr5SBdQ&#43;utXXY8LZW&#43;HcnI4ifkf&#43;6bqqypxMaKG/OvNMweOqyXVE7MOrBtVEa84jA09Xqe5iJW/tXUig==" />
+  
+  
+  <script type="text/javascript" src="/blog/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
+    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script defer type="text/javascript" id="script-bundle" src="/blog/js/main.bundle.min.0c424ab1c6aafe2039f09c49da59e609e9c3639b293d752971a3f96bb967114eb9719493d28e382b62527c185812ddc2c5a3664a3a21d0cbab06dafccbf685e4.js"
+    integrity="sha512-DEJKscaq/iA58JxJ2lnmCenDY5spPXUpcaP5a7lnEU65cZST0o44K2JSfBhYEt3CxaNmSjoh0MurBtr8y/aF5A==" data-copy="" data-copied=""></script>
+  
+  
+  
+  <script src="/blog/lib/zoom/zoom.min.fcbc7f7b3dcea96e3b5570cd322c5d7a12d5351c87f9889b1c31745a2cc711df58f6b70795a86d50e63813b236ade916668332c10a70a4ce26f7c0878f525fce.js" integrity="sha512-/Lx/ez3OqW47VXDNMixdehLVNRyH&#43;YibHDF0WizHEd9Y9rcHlahtUOY4E7I2rekWZoMywQpwpM4m98CHj1Jfzg=="></script>
+  
+  
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/favicon-16x16.png" />
+  <link rel="manifest" href="/blog/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:url" content="https://gwen0x4c3.github.io/blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/">
+  <meta property="og:site_name" content="Gwen&#39;s Blog">
+  <meta property="og:title" content="ElasticSearch个人学习笔记 狂神说">
+  <meta property="og:description" content="ElasicSearch 学习笔记，附带京东搜索商品小demo">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2022-05-03T00:00:00+00:00">
+    <meta property="article:modified_time" content="2022-05-03T00:00:00+00:00">
+    <meta property="article:tag" content="Elasticsearch">
+    <meta property="article:tag" content="Springboot">
+    <meta property="article:tag" content="Middleware">
+
+  
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="ElasticSearch个人学习笔记 狂神说">
+  <meta name="twitter:description" content="ElasicSearch 学习笔记，附带京东搜索商品小demo">
+
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Posts",
+    "name": "ElasticSearch个人学习笔记 狂神说",
+    "headline": "ElasticSearch个人学习笔记 狂神说",
+    
+    "abstract": "ElasicSearch 学习笔记，附带京东搜索商品小demo",
+    "inLanguage": "en",
+    "url" : "https:\/\/gwen0x4c3.github.io\/blog\/posts\/java\/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4\/",
+    "author" : {
+      "@type": "Person",
+      "name": "Gwen0x4c3"
+    },
+    "copyrightYear": "2022",
+    "dateCreated": "2022-05-03T00:00:00\u002b00:00",
+    "datePublished": "2022-05-03T00:00:00\u002b00:00",
+    
+    "dateModified": "2022-05-03T00:00:00\u002b00:00",
+    
+    "keywords": ["elasticsearch","springboot","middleware"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "2834"
+  }]
+  </script>
+
+
+  
+  
+  <meta name="author" content="Gwen0x4c3" />
+  
+  
+  
+  <link href="https://gwen0x4c3.github.io/blog" rel="me" />
+  
+  
+  <link href="https://github.com/Gwen0x4c3" rel="me" />
+  
+  
+  
+  
+
+<script src="/blog/lib/jquery/jquery.slim.min.03cb160e3cfdb2667a2e2c80d283bebcf63ff8bbc4b629c9ab2babf6fae1d0c07ad470edae783efa4fabda2ac01c58d60e63b98b3c336be8208460f08f4354f5.js" integrity="sha512-A8sWDjz9smZ6LiyA0oO&#43;vPY/&#43;LvEtinJqyur9vrh0MB61HDtrng&#43;&#43;k&#43;r2irAHFjWDmO5izwza&#43;gghGDwj0NU9Q=="></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  <meta name="theme-color"/>
+  
+  
+</head>
+<body
+  class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+  <div id="the-top" class="absolute flex self-center">
+    <a class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+      href="#main-content"><span
+        class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400">&darr;</span>Skip to main content</a>
+  </div>
+  
+  
+  <div class="min-h-[148px]"></div>
+<div class="fixed inset-x-0 pl-[24px] pr-[24px]" style="z-index:100">
+  <div id="menu-blur" class="absolute opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl shadow-2xl"></div>
+  <div class="relative max-w-[64rem] ml-auto mr-auto">
+    <div style="padding-left:0;padding-right:0;padding-top:2px;padding-bottom:3px"
+    class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start space-x-3">
+    
+    <div class="flex flex-1 items-center justify-between">
+        <nav class="flex space-x-3">
+
+            
+            <a href="/blog/" class="text-base font-medium text-gray-500 hover:text-gray-900">Gwen&rsquo;s Blog</a>
+            
+
+        </nav>
+        <nav class="hidden md:flex items-center space-x-5 md:ml-12 h-12">
+
+            
+            
+            
+  <a href="/blog/posts/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-base font-medium" title="">
+        Posts
+    </p>
+</a>
+
+
+
+            
+            
+  <a href="/blog/tags/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-base font-medium" title="">
+        Tags
+    </p>
+</a>
+
+
+
+            
+            
+  <a href="https://space.bilibili.com/13240443/"  target="_blank"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <span  class="mr-1" >
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path fill="currentColor" d="M172.5 131.1C228.1 75.51 320.5 75.51 376.1 131.1C426.1 181.1 433.5 260.8 392.4 318.3L391.3 319.9C381 334.2 361 337.6 346.7 327.3C332.3 317 328.9 297 339.2 282.7L340.3 281.1C363.2 249 359.6 205.1 331.7 177.2C300.3 145.8 249.2 145.8 217.7 177.2L105.5 289.5C73.99 320.1 73.99 372 105.5 403.5C133.3 431.4 177.3 435 209.3 412.1L210.9 410.1C225.3 400.7 245.3 404 255.5 418.4C265.8 432.8 262.5 452.8 248.1 463.1L246.5 464.2C188.1 505.3 110.2 498.7 60.21 448.8C3.741 392.3 3.741 300.7 60.21 244.3L172.5 131.1zM467.5 380C411 436.5 319.5 436.5 263 380C213 330 206.5 251.2 247.6 193.7L248.7 192.1C258.1 177.8 278.1 174.4 293.3 184.7C307.7 194.1 311.1 214.1 300.8 229.3L299.7 230.9C276.8 262.1 280.4 306.9 308.3 334.8C339.7 366.2 390.8 366.2 422.3 334.8L534.5 222.5C566 191 566 139.1 534.5 108.5C506.7 80.63 462.7 76.99 430.7 99.9L429.1 101C414.7 111.3 394.7 107.1 384.5 93.58C374.2 79.2 377.5 59.21 391.9 48.94L393.5 47.82C451 6.731 529.8 13.25 579.8 63.24C636.3 119.7 636.3 211.3 579.8 267.7L467.5 380z"/></svg>
+
+  </span>
+
+
+    </span>
+    
+    <p class="text-base font-medium" title="">
+        Bilibili
+    </p>
+</a>
+
+
+
+            
+            
+  <a href="https://github.com/Gwen0x4c3"  target="_blank"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <span >
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+
+  </span>
+
+
+    </span>
+    
+    <p class="text-base font-medium" title="">
+        
+    </p>
+</a>
+
+
+
+            
+            
+
+            
+
+
+            
+            <button id="search-button" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+
+            
+            
+            <div
+                class="ltr:mr-14 rtl:ml-14 flex items-center">
+                <button id="appearance-switcher" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+                    <div class="flex items-center justify-center dark:hidden">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                    </div>
+                    <div class="items-center justify-center hidden dark:flex">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                    </div>
+                </button>
+            </div>
+            
+
+        </nav>
+        <div class="flex md:hidden items-center space-x-5 md:ml-12 h-12">
+
+            <span></span>
+
+            
+
+
+            
+            <button id="search-button-mobile" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+            
+            
+            <button id="appearance-switcher-mobile" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400" style="margin-right:5px">
+                <div class="flex items-center justify-center dark:hidden">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                </div>
+                <div class="items-center justify-center hidden dark:flex">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                </div>
+            </button>
+            
+
+        </div>
+    </div>
+    <div class="-my-2 -mr-2 md:hidden">
+
+        <label id="menu-button" class="block">
+            
+            <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+                
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+
+  </span>
+
+
+            </div>
+            <div id="menu-wrapper" style="padding-top:5px;"
+                class="fixed inset-0 z-30 invisible w-screen h-screen m-0 overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50">
+                <ul
+                    class="flex space-y-2 mt-3 flex-col items-end w-full px-6 py-6 mx-auto overflow-visible list-none ltr:text-right rtl:text-left max-w-7xl">
+
+                    <li id="menu-close-button">
+                        <span
+                            class="cursor-pointer inline-block align-text-bottom hover:text-primary-600 dark:hover:text-primary-400">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+</span>
+                    </li>
+
+                    
+
+                    
+  <li class="mt-1">
+    <a href="/blog/posts/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-bg font-bg" title="">
+            Posts
+        </p>
+    </a>
+</li>
+
+
+
+
+                    
+
+                    
+  <li class="mt-1">
+    <a href="/blog/tags/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-bg font-bg" title="">
+            Tags
+        </p>
+    </a>
+</li>
+
+
+
+
+                    
+
+                    
+  <li class="mt-1">
+    <a href="https://space.bilibili.com/13240443/"  target="_blank"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <div  class="mr-2" >
+            
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path fill="currentColor" d="M172.5 131.1C228.1 75.51 320.5 75.51 376.1 131.1C426.1 181.1 433.5 260.8 392.4 318.3L391.3 319.9C381 334.2 361 337.6 346.7 327.3C332.3 317 328.9 297 339.2 282.7L340.3 281.1C363.2 249 359.6 205.1 331.7 177.2C300.3 145.8 249.2 145.8 217.7 177.2L105.5 289.5C73.99 320.1 73.99 372 105.5 403.5C133.3 431.4 177.3 435 209.3 412.1L210.9 410.1C225.3 400.7 245.3 404 255.5 418.4C265.8 432.8 262.5 452.8 248.1 463.1L246.5 464.2C188.1 505.3 110.2 498.7 60.21 448.8C3.741 392.3 3.741 300.7 60.21 244.3L172.5 131.1zM467.5 380C411 436.5 319.5 436.5 263 380C213 330 206.5 251.2 247.6 193.7L248.7 192.1C258.1 177.8 278.1 174.4 293.3 184.7C307.7 194.1 311.1 214.1 300.8 229.3L299.7 230.9C276.8 262.1 280.4 306.9 308.3 334.8C339.7 366.2 390.8 366.2 422.3 334.8L534.5 222.5C566 191 566 139.1 534.5 108.5C506.7 80.63 462.7 76.99 430.7 99.9L429.1 101C414.7 111.3 394.7 107.1 384.5 93.58C374.2 79.2 377.5 59.21 391.9 48.94L393.5 47.82C451 6.731 529.8 13.25 579.8 63.24C636.3 119.7 636.3 211.3 579.8 267.7L467.5 380z"/></svg>
+
+  </span>
+
+
+        </div>
+        
+        <p class="text-bg font-bg" title="">
+            Bilibili
+        </p>
+    </a>
+</li>
+
+
+
+
+                    
+
+                    
+  <li class="mt-1">
+    <a href="https://github.com/Gwen0x4c3"  target="_blank"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <div >
+            
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+
+  </span>
+
+
+        </div>
+        
+        <p class="text-bg font-bg" title="">
+            
+        </p>
+    </a>
+</li>
+
+
+
+
+                    
+
+                </ul>
+                
+                
+
+            </div>
+        </label>
+    </div>
+</div>
+
+
+
+
+
+  </div>
+</div>
+<script>
+  window.addEventListener('scroll', function (e) {
+    var scroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    var background_blur = document.getElementById('menu-blur');
+    background_blur.style.opacity = (scroll / 300);
+  });
+</script>
+
+  
+  <div class="relative flex flex-col grow">
+    <main id="main-content" class="grow">
+      
+
+
+<article>
+  
+  
+  
+  
+  
+  
+ 
+
+
+
+  
+  
+
+  <header id="single_header" class="mt-5 max-w-prose">
+    
+    <ol class="text-sm text-neutral-500 dark:text-neutral-400 print:hidden">
+  
+  
+    
+  
+    
+  
+  <li class="inline hidden">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/blog/"
+      >Gwen&#39;s Blog</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="inline ">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/blog/posts/"
+      >Posts</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="inline hidden">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/"
+      >ElasticSearch个人学习笔记 狂神说</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+</ol>
+
+
+    
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      ElasticSearch个人学习笔记 狂神说
+    </h1>
+    <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+      
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2022-05-03T00:00:00&#43;00:00">3 May 2022</time><span class="px-2 text-primary-500">&middot;</span><span>2834 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">14 mins</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/blog/categories/blogs/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Blogs
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/blog/categories/tutorials/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Tutorials
+  </span>
+</span>
+  </span>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/blog/tags/elasticsearch/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Elasticsearch
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/blog/tags/springboot/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Springboot
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/blog/tags/middleware/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Middleware
+  </span>
+</span>
+  </span>
+  
+  
+  
+  
+</div>
+
+
+
+
+    </div>
+
+    
+    
+    
+    
+    
+
+    
+
+    
+      
+      
+        
+        
+<div class="flex author">
+  
+    
+    
+      
+    
+    
+      
+        
+      
+      <img class="!mt-0 !mb-0 h-24 w-24 rounded-full ltr:mr-4 rtl:ml-4" width="96" height="96"
+      alt="Gwen0x4c3" src="/blog/img/gwen0x4c3_hu16197589374453026943.jpg" />
+    
+  
+  <div class="place-self-center">
+    
+    <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+      Author
+    </div>
+    <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+      Gwen0x4c3
+    </div>
+    
+    
+    <div class="text-sm text-neutral-700 dark:text-neutral-400">java n go is my mother tongue</div>
+    
+    <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500">
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://gwen0x4c3.github.io/blog"
+          target="_blank"
+          aria-label="Link"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path fill="currentColor" d="M172.5 131.1C228.1 75.51 320.5 75.51 376.1 131.1C426.1 181.1 433.5 260.8 392.4 318.3L391.3 319.9C381 334.2 361 337.6 346.7 327.3C332.3 317 328.9 297 339.2 282.7L340.3 281.1C363.2 249 359.6 205.1 331.7 177.2C300.3 145.8 249.2 145.8 217.7 177.2L105.5 289.5C73.99 320.1 73.99 372 105.5 403.5C133.3 431.4 177.3 435 209.3 412.1L210.9 410.1C225.3 400.7 245.3 404 255.5 418.4C265.8 432.8 262.5 452.8 248.1 463.1L246.5 464.2C188.1 505.3 110.2 498.7 60.21 448.8C3.741 392.3 3.741 300.7 60.21 244.3L172.5 131.1zM467.5 380C411 436.5 319.5 436.5 263 380C213 330 206.5 251.2 247.6 193.7L248.7 192.1C258.1 177.8 278.1 174.4 293.3 184.7C307.7 194.1 311.1 214.1 300.8 229.3L299.7 230.9C276.8 262.1 280.4 306.9 308.3 334.8C339.7 366.2 390.8 366.2 422.3 334.8L534.5 222.5C566 191 566 139.1 534.5 108.5C506.7 80.63 462.7 76.99 430.7 99.9L429.1 101C414.7 111.3 394.7 107.1 384.5 93.58C374.2 79.2 377.5 59.21 391.9 48.94L393.5 47.82C451 6.731 529.8 13.25 579.8 63.24C636.3 119.7 636.3 211.3 579.8 267.7L467.5 380z"/></svg>
+
+  </span>
+
+</span></a
+        >
+      
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://github.com/Gwen0x4c3"
+          target="_blank"
+          aria-label="Github"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+
+  </span>
+
+</span></a
+        >
+      
+    
+  </div>
+
+</div>
+  </div>
+</div>
+
+      
+
+      
+
+      
+      <div class="mb-5"></div>
+      
+
+    
+
+  </header>
+  
+  <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+    
+     <div
+      class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
+      <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-[140px]">
+
+         <details open id="TOCView"
+  class="toc-right mt-0 overflow-y-scroll overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    Table of Contents
+  </summary>
+  <div
+    class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#es安装">ES安装</a>
+          <ul>
+            <li>
+              <ul>
+                <li><a href="#1下载es">1.下载es</a></li>
+                <li><a href="#2-安装可视化界面es-head">2. 安装可视化界面es head</a></li>
+                <li><a href="#3-安装kibana">3. 安装Kibana</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#es核心概念">ES核心概念</a>
+          <ul>
+            <li>
+              <ul>
+                <li><a href="#1-总体概述">1. 总体概述</a></li>
+                <li><a href="#2-文档">2. 文档</a></li>
+                <li><a href="#3-类型">3. 类型</a></li>
+                <li><a href="#4-索引">4. 索引</a></li>
+                <li><a href="#5-物理设计节点和分片-如何工作">5. <strong>物理设计：节点和分片 如何工作</strong></a></li>
+                <li><a href="#6-倒排索引">6. 倒排索引</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#ik分词器">IK分词器</a>
+          <ul>
+            <li>
+              <ul>
+                <li><a href="#1-配置">1. 配置</a></li>
+                <li><a href="#2-测试">2. 测试</a></li>
+                <li><a href="#3-添加自定义词汇到词典中">3. 添加自定义词汇到词典中</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#rest风格操作">REST风格操作</a>
+          <ul>
+            <li>
+              <ul>
+                <li><a href="#1-创建索引">1. 创建索引</a></li>
+                <li><a href="#2-字段数据类型">2. 字段数据类型</a></li>
+                <li><a href="#3-指定字段的类型">3. 指定字段的类型</a></li>
+                <li><a href="#4-修改">4. 修改</a></li>
+                <li><a href="#5-删除">5. 删除</a></li>
+                <li><a href="#6-查询">6. 查询</a></li>
+                <li><a href="#7-高亮">7. 高亮</a></li>
+                <li><a href="#8-最小匹配度">8. 最小匹配度</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#集成springboot">集成SpringBoot</a>
+          <ul>
+            <li>
+              <ul>
+                <li><a href="#1-创建空maven项目指定es的version">1. 创建空Maven项目，指定es的version</a></li>
+                <li><a href="#2-依赖">2. 依赖</a></li>
+                <li><a href="#3-配置elasticsearchclientconfig配置类添加bean">3. 配置ElasticSearchClientConfig配置类，添加Bean</a></li>
+                <li><a href="#4-创建实体类">4. 创建实体类</a></li>
+                <li><a href="#5-测试">5. 测试</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#仿京东搜索">仿京东搜索</a>
+          <ul>
+            <li>
+              <ul>
+                <li><a href="#1-解析京东网页获取数据放入es">1. 解析京东网页获取数据放入ES</a></li>
+                <li><a href="#2-搜索功能实现">2. 搜索功能实现</a></li>
+                <li><a href="#3-前端页面">3. 前端页面</a></li>
+                <li><a href="#4-最终效果">4. 最终效果</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</details>
+<details class="toc-inside mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 lg:hidden">
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    Table of Contents
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#es安装">ES安装</a>
+          <ul>
+            <li>
+              <ul>
+                <li><a href="#1下载es">1.下载es</a></li>
+                <li><a href="#2-安装可视化界面es-head">2. 安装可视化界面es head</a></li>
+                <li><a href="#3-安装kibana">3. 安装Kibana</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#es核心概念">ES核心概念</a>
+          <ul>
+            <li>
+              <ul>
+                <li><a href="#1-总体概述">1. 总体概述</a></li>
+                <li><a href="#2-文档">2. 文档</a></li>
+                <li><a href="#3-类型">3. 类型</a></li>
+                <li><a href="#4-索引">4. 索引</a></li>
+                <li><a href="#5-物理设计节点和分片-如何工作">5. <strong>物理设计：节点和分片 如何工作</strong></a></li>
+                <li><a href="#6-倒排索引">6. 倒排索引</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#ik分词器">IK分词器</a>
+          <ul>
+            <li>
+              <ul>
+                <li><a href="#1-配置">1. 配置</a></li>
+                <li><a href="#2-测试">2. 测试</a></li>
+                <li><a href="#3-添加自定义词汇到词典中">3. 添加自定义词汇到词典中</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#rest风格操作">REST风格操作</a>
+          <ul>
+            <li>
+              <ul>
+                <li><a href="#1-创建索引">1. 创建索引</a></li>
+                <li><a href="#2-字段数据类型">2. 字段数据类型</a></li>
+                <li><a href="#3-指定字段的类型">3. 指定字段的类型</a></li>
+                <li><a href="#4-修改">4. 修改</a></li>
+                <li><a href="#5-删除">5. 删除</a></li>
+                <li><a href="#6-查询">6. 查询</a></li>
+                <li><a href="#7-高亮">7. 高亮</a></li>
+                <li><a href="#8-最小匹配度">8. 最小匹配度</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#集成springboot">集成SpringBoot</a>
+          <ul>
+            <li>
+              <ul>
+                <li><a href="#1-创建空maven项目指定es的version">1. 创建空Maven项目，指定es的version</a></li>
+                <li><a href="#2-依赖">2. 依赖</a></li>
+                <li><a href="#3-配置elasticsearchclientconfig配置类添加bean">3. 配置ElasticSearchClientConfig配置类，添加Bean</a></li>
+                <li><a href="#4-创建实体类">4. 创建实体类</a></li>
+                <li><a href="#5-测试">5. 测试</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#仿京东搜索">仿京东搜索</a>
+          <ul>
+            <li>
+              <ul>
+                <li><a href="#1-解析京东网页获取数据放入es">1. 解析京东网页获取数据放入ES</a></li>
+                <li><a href="#2-搜索功能实现">2. 搜索功能实现</a></li>
+                <li><a href="#3-前端页面">3. 前端页面</a></li>
+                <li><a href="#4-最终效果">4. 最终效果</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+<script>
+
+  var margin = 200;
+  var marginError = 50;
+
+  (function () {
+    var $window = $(window);
+    var $toc = $('#TOCView');
+    var tocHeight = $toc.height();
+
+    function onResize() {
+      var windowAndMarginHeight = $window.height() - margin;
+      if(tocHeight >= windowAndMarginHeight) {
+        $toc.css("overflow-y", "scroll")
+        $toc.css("max-height", (windowAndMarginHeight + marginError) + "px")
+      } else {
+        $toc.css("overflow-y", "hidden")
+        $toc.css("max-height", "9999999px")
+      }
+    }
+
+    $window.on('resize', onResize);
+    $(document).ready(onResize);
+  })();
+
+
+
+</script>
+   </div>
+      </div>
+      
+
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+        
+
+
+        <div class="article-content max-w-prose mb-20">
+          
+
+<h3 class="relative group">ES安装 
+    <div id="es%E5%AE%89%E8%A3%85" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#es%E5%AE%89%E8%A3%85" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<p>介绍：ELK是Elasticsearch、Logstash、Kibana的合体，市面上也成为Elastic Stack，是一个日志分析架构技术栈总称</p>
+<p>声明：JDK版本1.8+才可以</p>
+<p>安装：ElasticSearch客户端、可视化界面，整合的时候版本要对应</p>
+
+
+<h5 class="relative group">1.下载es 
+    <div id="1%E4%B8%8B%E8%BD%BDes" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#1%E4%B8%8B%E8%BD%BDes" aria-label="Anchor">#</a>
+    </span>        
+    
+</h5>
+<p>官网：https://www.elastic.co/cn/</p>
+<p>华为云镜像：<br>
+ElasticSearch: <a href="https://mirrors.huaweicloud.com/elasticsearch/?C=N&amp;O=D" target="_blank">https://mirrors.huaweicloud.com/elasticsearch/?C=N&O=D</a><br>
+logstash: <a href="https://mirrors.huaweicloud.com/logstash/?C=N&amp;O=D" target="_blank">https://mirrors.huaweicloud.com/logstash/?C=N&O=D</a><br>
+kibana: <a href="https://mirrors.huaweicloud.com/kibana/?C=N&amp;O=D" target="_blank">https://mirrors.huaweicloud.com/kibana/?C=N&O=D</a></p>
+<p>暂时先下载了7.6.2版本</p>
+<blockquote>
+<p>修改配置文件</p>
+</blockquote>
+<p>修改jvm的内存为256m 初始是1g</p>
+<blockquote>
+<p>运行elasticsearch.bat</p>
+</blockquote>
+<p>访问localhost:9200<br>
+
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/45809eb283d30794b4e0f35e4370b5bb_hu6963826900952931517.png 330w,
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/45809eb283d30794b4e0f35e4370b5bb_hu2300003423824204187.png 660w,
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/45809eb283d30794b4e0f35e4370b5bb_hu3845125617534243646.png 1024w,
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/45809eb283d30794b4e0f35e4370b5bb_hu1681975762929664173.png 2x"
+        src="/blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/45809eb283d30794b4e0f35e4370b5bb_hu2300003423824204187.png"
+        alt="在这里插入图片描述"
+      />
+      
+    </figure>
+</p>
+
+
+<h5 class="relative group">2. 安装可视化界面es head 
+    <div id="2-%E5%AE%89%E8%A3%85%E5%8F%AF%E8%A7%86%E5%8C%96%E7%95%8C%E9%9D%A2es-head" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#2-%E5%AE%89%E8%A3%85%E5%8F%AF%E8%A7%86%E5%8C%96%E7%95%8C%E9%9D%A2es-head" aria-label="Anchor">#</a>
+    </span>        
+    
+</h5>
+<p>网址：https://github.com/mobz/elasticsearch-head</p>
+<pre><code># Running with built in server
+git clone git://github.com/mobz/elasticsearch-head.git
+cd elasticsearch-head`
+npm install
+npm run start
+
+`open` http://localhost:9100/
+
+This will start a local webserver running on port 9100 serving elasticsearch-head
+
+# Running with docker
+for Elasticsearch 5.x: `docker run -p 9100:9100 mobz/elasticsearch-head:5`
+for Elasticsearch 2.x: `docker run -p 9100:9100 mobz/elasticsearch-head:2`
+for Elasticsearch 1.x: `docker run -p 9100:9100 mobz/elasticsearch-head:1`
+for fans of alpine there is `mobz/elasticsearch-head:5-alpine`
+
+`open` http://localhost:9100/
+</code></pre>
+<p>此时打开控制台，发现报跨域错误<br>
+
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/b1d9078c3384dc801dec510acf9a0fa3_hu4426343733057365920.png 330w,
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/b1d9078c3384dc801dec510acf9a0fa3_hu16673072385223817360.png 660w,
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/b1d9078c3384dc801dec510acf9a0fa3_hu2548600423938667823.png 1024w,
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/b1d9078c3384dc801dec510acf9a0fa3_hu11235321301190945772.png 2x"
+        src="/blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/b1d9078c3384dc801dec510acf9a0fa3_hu16673072385223817360.png"
+        alt="在这里插入图片描述"
+      />
+      
+    </figure>
+</p>
+<blockquote>
+<p>配置跨域</p>
+</blockquote>
+<p>打开elasticsearch.yml，输入</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="w">    </span><span class="nt">http.cors.enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">http.cors.allow-origin</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;*&#34;</span><span class="w">
+</span></span></span></code></pre></div><p>配置完成后将显示es节点</p>
+<blockquote>
+<p>新建索引</p>
+</blockquote>
+<p>索引当成一个数据库， 文档当成库里的数据，这个head当成一个数据展示工具，后面所有的查询操作都在Kibana中进行<br>
+
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/695e80c1a503b5f4b921dfd7a555c29c_hu14668024518730483706.png 330w,
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/695e80c1a503b5f4b921dfd7a555c29c_hu7598828969178160735.png 660w,
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/695e80c1a503b5f4b921dfd7a555c29c_hu3603111994373508127.png 1024w,
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/695e80c1a503b5f4b921dfd7a555c29c_hu3857472882344434376.png 2x"
+        src="/blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/695e80c1a503b5f4b921dfd7a555c29c_hu7598828969178160735.png"
+        alt="在这里插入图片描述"
+      />
+      
+    </figure>
+</p>
+
+
+<h5 class="relative group">3. 安装Kibana 
+    <div id="3-%E5%AE%89%E8%A3%85kibana" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#3-%E5%AE%89%E8%A3%85kibana" aria-label="Anchor">#</a>
+    </span>        
+    
+</h5>
+<p>网址：kibana: <a href="https://mirrors.huaweicloud.com/kibana/?C=N&amp;O=D" target="_blank">https://mirrors.huaweicloud.com/kibana/?C=N&O=D</a></p>
+<p>版本要和ES版本一致</p>
+<ul>
+<li>
+<p>启动比较耗时，访问localhost:5601</p>
+</li>
+<li>
+<p>打开Dev tools页面，可以测试连接</p>
+</li>
+<li>
+<p>汉化：打开kibana.yml，添加<strong>i18n.locale: “zh-CN”</strong></p>
+</li>
+</ul>
+
+
+<h3 class="relative group">ES核心概念 
+    <div id="es%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#es%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+
+
+<h5 class="relative group">1. 总体概述 
+    <div id="1-%E6%80%BB%E4%BD%93%E6%A6%82%E8%BF%B0" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#1-%E6%80%BB%E4%BD%93%E6%A6%82%E8%BF%B0" aria-label="Anchor">#</a>
+    </span>        
+    
+</h5>
+<p>Elasticsearch是面向文档的，ES中的一切都是JSON。关系型数据库 和 Elasticsearch对比：<br>
+
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/a3765a41e2018e57a78ab348d2b80981_hu12354593092930517160.png 330w,
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/a3765a41e2018e57a78ab348d2b80981_hu2277952720288356575.png 660w,
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/a3765a41e2018e57a78ab348d2b80981_hu5024963858714723312.png 1024w,
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/a3765a41e2018e57a78ab348d2b80981_hu15009400151710171695.png 2x"
+        src="/blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/a3765a41e2018e57a78ab348d2b80981_hu2277952720288356575.png"
+        alt="在这里插入图片描述"
+      />
+      
+    </figure>
+<br>
+Mysql存数据：建库 – 建表 – 建行(对应具体数据) – 写入字段</p>
+<p>ES存数据：建索引 – 建立types(慢慢被弃用) – 创建文档(对应具体数据)</p>
+<p><strong>物理设计</strong>：</p>
+<p>ES在后台把每个索引<strong>划分成多个分片</strong>，每个分片可在集群中不同的服务器之间迁移，他一个人就是一个集群，不存在单个的ES</p>
+<p><strong>逻辑设计</strong>：</p>
+<p>一个索引类型包含多个文档：文档1、文档2.当索引一篇文档时，可通过这样的顺序找到他：索引 – 类型 – 文档ID，通过这个组合我们就能所引导某个具体的文档。</p>
+
+
+<h5 class="relative group">2. 文档 
+    <div id="2-%E6%96%87%E6%A1%A3" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#2-%E6%96%87%E6%A1%A3" aria-label="Anchor">#</a>
+    </span>        
+    
+</h5>
+<p>文档就是一条条数据，类似行：</p>
+<pre><code>user:
+1  zhangsan  18
+2  wangwu    19
+3  zhaoliu   20
+</code></pre>
+<p>ES是面向文档的，所以索引搜索数据的最小单位就是文档。文档重要属性：</p>
+<ul>
+<li>自我包含，一篇文章同时包含字段和对应的值，即包含key:value</li>
+<li>可以使层次型的，一个文档中包含文档，复杂的逻辑实体就是这么来的</li>
+<li>灵活的结构，文档不依赖预先定义的模式，我们知道关系型数据库中，要提前定义字段才能使用，在elasticsearch中，对于字段是非常灵活的，有时候,我们可以忽略该字段，或者动态的添加一个新的字段。</li>
+</ul>
+
+
+<h5 class="relative group">3. 类型 
+    <div id="3-%E7%B1%BB%E5%9E%8B" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#3-%E7%B1%BB%E5%9E%8B" aria-label="Anchor">#</a>
+    </span>        
+    
+</h5>
+<p>类型是文档的逻辑容器，类似表，就像关系型数据库一样，表格是行的容器。类型中对于字段的定义称为映射，比如name映射为字符串类型。我们说文档是无模式的，它们不需要拥有映射中所定义的所有字段，比如新增一个字段，那么elasticsearch是怎么做的呢?</p>
+<ul>
+<li>elasticsearch会自动的将新字段加入映射，但是这个字段的不确定它是什么类型，elasticsearch就开始猜，如果这个值是18，那么elasticsearch会认为它是整形。但是elasticsearch也可能猜不对，所以最安全的方式就是提前定义好所需要的映射，这点跟关系型数据库殊途同归了，先定义好字段，然后再使用。</li>
+</ul>
+
+
+<h5 class="relative group">4. 索引 
+    <div id="4-%E7%B4%A2%E5%BC%95" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#4-%E7%B4%A2%E5%BC%95" aria-label="Anchor">#</a>
+    </span>        
+    
+</h5>
+<p>索引是映射类型的容器，类似数据库， elasticsearch中的索引是一个非常大的文档集合。 索引存储了映射类型的字段和其他设置。然后它们被存储到了各个分片上了。我们来研究下分片是如何工作的。</p>
+
+
+<h5 class="relative group">5. <strong>物理设计：节点和分片 如何工作</strong> 
+    <div id="5-%E7%89%A9%E7%90%86%E8%AE%BE%E8%AE%A1%E8%8A%82%E7%82%B9%E5%92%8C%E5%88%86%E7%89%87-%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#5-%E7%89%A9%E7%90%86%E8%AE%BE%E8%AE%A1%E8%8A%82%E7%82%B9%E5%92%8C%E5%88%86%E7%89%87-%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C" aria-label="Anchor">#</a>
+    </span>        
+    
+</h5>
+<p>创建新索引</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/7a6bb868f0be624dbcb9bd1bb39021a5_hu12597182548294645895.png 330w,
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/7a6bb868f0be624dbcb9bd1bb39021a5_hu5735747045840954434.png 660w,
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/7a6bb868f0be624dbcb9bd1bb39021a5_hu11397588958213075206.png 1024w,
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/7a6bb868f0be624dbcb9bd1bb39021a5_hu308468959853220097.png 2x"
+        src="/blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/7a6bb868f0be624dbcb9bd1bb39021a5_hu5735747045840954434.png"
+        alt="创建新索引"
+      />
+      
+    </figure>
+</p>
+<p>一个集群至少有一个节点，而一个节点就是一个elasricsearch进程，节点可以有多个索引默认的，如果你创建索引，那么索引将会有个5个分片(primary shard ,又称主分片)构成的，每一个主分片会有一个副本(replica shard，又称复制分片)</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/09fbd6191ee026d126a22cb92d2c9822_hu3450012229667557788.png 330w,
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/09fbd6191ee026d126a22cb92d2c9822_hu13328529673103645002.png 660w,
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/09fbd6191ee026d126a22cb92d2c9822_hu7089094318967170421.png 1024w,
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/09fbd6191ee026d126a22cb92d2c9822_hu7421962446063771528.png 2x"
+        src="/blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/09fbd6191ee026d126a22cb92d2c9822_hu13328529673103645002.png"
+        alt="img"
+      />
+      
+    </figure>
+</p>
+<p>上图是一个有3个节点的集群，可以看到主分片和对应的复制分片都不会在同一个节点内，这样有利于某个节点挂掉了，数据也不至于失。实际上，<strong>一个分片是一个Lucene索引（一个ElasticSearch索引包含多个Lucene索引）</strong> ，<strong>一个包含倒排索引的文件目录，倒排索引的结构使得elasticsearch在不扫描全部文档的情况下，就能告诉你哪些文档包含特定的关键字</strong>。不过，等等，倒排索引是什么鬼?</p>
+
+
+<h5 class="relative group">6. 倒排索引 
+    <div id="6-%E5%80%92%E6%8E%92%E7%B4%A2%E5%BC%95" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#6-%E5%80%92%E6%8E%92%E7%B4%A2%E5%BC%95" aria-label="Anchor">#</a>
+    </span>        
+    
+</h5>
+<p>搜索的核心需求是<strong>全文检索</strong>，全文检索简单来说就是要在大量文档中找到包含<strong>某个单词</strong>出现的位置，在传统关系型数据库中，数据检索只能通过 like 来实现，例如需要在酒店数据中查询名称包含公寓的酒店，需要通过如下 sql 实现：</p>
+<pre><code>select * from hotel_table where hotel_name like '%公寓%';
+</code></pre>
+<p>这种实现方式实际会存在很多问题：</p>
+<ul>
+<li>无法使用数据库索引，需要全表扫描，性能差</li>
+<li>搜索效果差，只能首尾位模糊匹配，无法实现复杂的搜索需求</li>
+<li>无法得到文档与搜索条件的相关性</li>
+</ul>
+<p><strong>正排索引</strong>：是以文档对象的唯一 ID 作为索引，以文档内容作为记录的结构。</p>
+<p><strong>倒排索引</strong>：Inverted index，指的是将文档内容中的单词作为索引，将包含该词的文档 ID 作为记录的结构。</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/5470c53a8a72dd50114b654c1e24b332_hu5364158148807891563.png 330w,
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/5470c53a8a72dd50114b654c1e24b332_hu13617997638606297003.png 660w,
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/5470c53a8a72dd50114b654c1e24b332_hu11683734663790514241.png 1024w,
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/5470c53a8a72dd50114b654c1e24b332_hu8487931835044485155.png 2x"
+        src="/blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/5470c53a8a72dd50114b654c1e24b332_hu13617997638606297003.png"
+        alt="在这里插入图片描述"
+      />
+      
+    </figure>
+</p>
+<blockquote>
+<p>例子</p>
+</blockquote>
+<p>有两个文档</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: center">文档 id</th>
+          <th style="text-align: center">content</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center">1</td>
+          <td style="text-align: center">苏州街维亚大厦</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">2</td>
+          <td style="text-align: center">桔子酒店苏州街店</td>
+      </tr>
+  </tbody>
+</table>
+<p>生成倒排索引：</p>
+<ul>
+<li>首先进行<strong>分词</strong>，这里两个文档包含的关键词有：苏州街、维亚大厦…</li>
+<li>然后按照单词来作为索引，对应的文档 id 建立一个链表，就能构成上述的倒排索引结构。</li>
+</ul>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: center">Word</th>
+          <th style="text-align: center">文档 id</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center">苏州街</td>
+          <td style="text-align: center">1,2</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">维亚大厦</td>
+          <td style="text-align: center">1</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">维亚</td>
+          <td style="text-align: center">1</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">桔子</td>
+          <td style="text-align: center">2</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">酒店</td>
+          <td style="text-align: center">2</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">大赛</td>
+          <td style="text-align: center">1</td>
+      </tr>
+  </tbody>
+</table>
+<p>有了倒排索引，能快速、灵活地实现各类搜索需求。整个搜索过程中我们不需要做任何文本的模糊匹配。</p>
+<p>例如，如果需要在上述两个文档中查询 <strong>苏州街桔子</strong> ，可以通过分词后 <strong>苏州街</strong> 查到 1、2，通过 <strong>桔子</strong> 查到 2，然后再进行<strong>取交取并</strong>等操作得到最终结果。</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/6f79c0e3380a20955361886743d2cb93_hu12314845782098913238.png 330w,
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/6f79c0e3380a20955361886743d2cb93_hu14970828901811400304.png 660w,
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/6f79c0e3380a20955361886743d2cb93_hu8413478463234719953.png 1024w,
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/6f79c0e3380a20955361886743d2cb93_hu15740707928551238822.png 2x"
+        src="/blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/6f79c0e3380a20955361886743d2cb93_hu14970828901811400304.png"
+        alt="在这里插入图片描述"
+      />
+      
+    </figure>
+</p>
+<p>在ES中，索引（库）被分为多个分片，每个分片是一个Lucene的索引。所以一个ES索引是由多个Lucene索引组成的</p>
+
+
+<h3 class="relative group">IK分词器 
+    <div id="ik%E5%88%86%E8%AF%8D%E5%99%A8" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#ik%E5%88%86%E8%AF%8D%E5%99%A8" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+
+
+<h5 class="relative group">1. 配置 
+    <div id="1-%E9%85%8D%E7%BD%AE" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#1-%E9%85%8D%E7%BD%AE" aria-label="Anchor">#</a>
+    </span>        
+    
+</h5>
+<ol>
+<li>
+<p>下载网址：https://github.com/medcl/elasticsearch-analysis-ik/releases</p>
+</li>
+<li>
+<p>新建文件夹“ik”，放到es的plugin文件夹中，将文件解压到ik里</p>
+</li>
+<li>
+<p>重启es</p>
+</li>
+<li>
+<p>可以通过<strong>elasticsearch-plugin list</strong>命令查看加载的插件</p>
+</li>
+</ol>
+
+
+<h5 class="relative group">2. 测试 
+    <div id="2-%E6%B5%8B%E8%AF%95" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#2-%E6%B5%8B%E8%AF%95" aria-label="Anchor">#</a>
+    </span>        
+    
+</h5>
+<p>有两种模式：<strong>ik_smart(最少切分)</strong> 和 <strong>ik_max_word(最细粒度划分)</strong></p>
+<pre><code>GET _analyze
+{
+  &quot;analyzer&quot;: &quot;ik_smart&quot;,
+  &quot;text&quot;: &quot;中国共产党&quot;
+}
+//结果
+{
+  &quot;tokens&quot; : [
+    {
+      &quot;token&quot; : &quot;中国共产党&quot;,
+      &quot;start_offset&quot; : 0,
+      &quot;end_offset&quot; : 5,
+      &quot;type&quot; : &quot;CN_WORD&quot;,
+      &quot;position&quot; : 0
+    }
+  ]
+}
+
+GET _analyze
+{
+  &quot;analyzer&quot;: &quot;ik_max_word&quot;,
+  &quot;text&quot;: &quot;中国共产党&quot;
+}
+//结果
+{
+  &quot;tokens&quot; : [
+    {
+      &quot;token&quot; : &quot;中国共产党&quot;,
+      &quot;position&quot; : 0
+    },
+    {
+      &quot;token&quot; : &quot;中国&quot;,
+      &quot;position&quot; : 1
+    },
+    {
+      &quot;token&quot; : &quot;国共&quot;,
+      &quot;position&quot; : 2
+    },
+    {
+      &quot;token&quot; : &quot;共产党&quot;,
+      &quot;position&quot; : 3
+    },
+    {
+      &quot;token&quot; : &quot;共产&quot;,
+      &quot;position&quot; : 4
+    },
+    {
+      &quot;token&quot; : &quot;党&quot;,
+      &quot;position&quot; : 5
+    }
+  ]
+}
+</code></pre>
+
+
+<h5 class="relative group">3. 添加自定义词汇到词典中 
+    <div id="3-%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%AE%9A%E4%B9%89%E8%AF%8D%E6%B1%87%E5%88%B0%E8%AF%8D%E5%85%B8%E4%B8%AD" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#3-%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%AE%9A%E4%B9%89%E8%AF%8D%E6%B1%87%E5%88%B0%E8%AF%8D%E5%85%B8%E4%B8%AD" aria-label="Anchor">#</a>
+    </span>        
+    
+</h5>
+<p>elasticsearch/plugins/ik/config/IKAnalyzer.cfg.xml</p>
+<pre><code>&lt;properties&gt;
+	&lt;comment&gt;IK Analyzer 扩展配置&lt;/comment&gt;
+	&lt;!--用户可以在这里配置自己的扩展字典 --&gt;
+	&lt;entry key=&quot;ext_dict&quot;&gt;herb_names.dic&lt;/entry&gt;
+	 &lt;!--用户可以在这里配置自己的扩展停止词字典--&gt;
+	&lt;entry key=&quot;ext_stopwords&quot;&gt;&lt;/entry&gt;
+&lt;/properties&gt;
+</code></pre>
+<p>elasticsearch/plugins/ik/config/herb_names.dic</p>
+<pre><code>麻黄
+桂枝
+荆芥
+...
+</code></pre>
+
+
+<h3 class="relative group">REST风格操作 
+    <div id="rest%E9%A3%8E%E6%A0%BC%E6%93%8D%E4%BD%9C" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#rest%E9%A3%8E%E6%A0%BC%E6%93%8D%E4%BD%9C" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<blockquote>
+<p>基本Rest命令说明</p>
+</blockquote>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: center">method</th>
+          <th style="text-align: center">url地址</th>
+          <th style="text-align: center">描述</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center">PUT（创建,修改）</td>
+          <td style="text-align: center">localhost:9200/索引名称/类型名称/文档id</td>
+          <td style="text-align: center">创建文档（指定文档id）</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">POST（创建）</td>
+          <td style="text-align: center">localhost:9200/索引名称/类型名称</td>
+          <td style="text-align: center">创建文档（随机文档id）</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">POST（修改）</td>
+          <td style="text-align: center">localhost:9200/索引名称/类型名称/文档id/_update</td>
+          <td style="text-align: center">修改文档</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">DELETE（删除）</td>
+          <td style="text-align: center">localhost:9200/索引名称/类型名称/文档id</td>
+          <td style="text-align: center">删除文档</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">GET（查询）</td>
+          <td style="text-align: center">localhost:9200/索引名称/类型名称/文档id</td>
+          <td style="text-align: center">查询文档通过文档ID</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">POST（查询）</td>
+          <td style="text-align: center">localhost:9200/索引名称/类型名称/文档id/_search</td>
+          <td style="text-align: center">查询所有数据</td>
+      </tr>
+  </tbody>
+</table>
+<blockquote>
+<p>测试</p>
+</blockquote>
+
+
+<h5 class="relative group">1. 创建索引 
+    <div id="1-%E5%88%9B%E5%BB%BA%E7%B4%A2%E5%BC%95" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#1-%E5%88%9B%E5%BB%BA%E7%B4%A2%E5%BC%95" aria-label="Anchor">#</a>
+    </span>        
+    
+</h5>
+<p>Deprecation: [types removal] Specifying types in document index requests is deprecated, use the typeless endpoints instead (<strong>/{index}/doc/{id}</strong>, <strong>/{index}/doc</strong>, or <strong>/{index}/_create/{id}</strong>).</p>
+<pre><code>//已弃用方式：
+PUT /test1/type1/1
+{
+   &quot;name&quot; : &quot;流柚&quot;,
+   &quot;age&quot; : 18
+}
+
+//替换：
+PUT /test1/_doc/1
+{
+    &quot;name&quot;: &quot;流油&quot;,
+    &quot;age&quot;: 18
+}
+</code></pre>
+<p>结果：<br>
+
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/18e97d7c0973984367e49160bfa88f2e_hu7799712742472044407.png 330w,
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/18e97d7c0973984367e49160bfa88f2e_hu15219532177855442772.png 660w,
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/18e97d7c0973984367e49160bfa88f2e_hu4398620394862374765.png 1024w,
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/18e97d7c0973984367e49160bfa88f2e_hu17377141979195981688.png 2x"
+        src="/blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/18e97d7c0973984367e49160bfa88f2e_hu15219532177855442772.png"
+        alt="在这里插入图片描述"
+      />
+      
+    </figure>
+</p>
+
+
+<h5 class="relative group">2. 字段数据类型 
+    <div id="2-%E5%AD%97%E6%AE%B5%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#2-%E5%AD%97%E6%AE%B5%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B" aria-label="Anchor">#</a>
+    </span>        
+    
+</h5>
+<ul>
+<li>字符串类型
+<ul>
+<li>text、keyword
+<ul>
+<li>text：支持分词，全文检索,支持模糊、精确查询,不支持聚合,排序操作;text类型的最大支持的字符长度无限制,适合大字段存储；</li>
+<li>keyword：不进行分词，直接索引、支持模糊、支持精确匹配，支持聚合、排序操作。keyword类型的最大支持的长度为——32766个UTF-8类型的字符,可以通过设置ignore_above指定自持字符长度，超过给定长度后的数据将不被索引，无法通过term精确匹配检索返回结果。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>数值型
+<ul>
+<li>long、Integer、short、byte、double、float、<strong>half float</strong>、<strong>scaled float</strong></li>
+</ul>
+</li>
+<li>日期类型
+<ul>
+<li>date</li>
+</ul>
+</li>
+<li>te布尔类型
+<ul>
+<li>boolean</li>
+</ul>
+</li>
+<li>二进制类型
+<ul>
+<li>binary</li>
+</ul>
+</li>
+<li>等等…</li>
+</ul>
+
+
+<h5 class="relative group">3. 指定字段的类型 
+    <div id="3-%E6%8C%87%E5%AE%9A%E5%AD%97%E6%AE%B5%E7%9A%84%E7%B1%BB%E5%9E%8B" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#3-%E6%8C%87%E5%AE%9A%E5%AD%97%E6%AE%B5%E7%9A%84%E7%B1%BB%E5%9E%8B" aria-label="Anchor">#</a>
+    </span>        
+    
+</h5>
+<p>设置规则</p>
+<pre><code>PUT /test2
+{
+  &quot;mappings&quot;: {
+    &quot;properties&quot;: {
+      &quot;name&quot;: {
+        &quot;type&quot;: &quot;text&quot;
+      },
+      &quot;age&quot;: {
+        &quot;type&quot;: &quot;long&quot;
+      },
+      &quot;birthday&quot;: {
+        &quot;type&quot;: &quot;date&quot;
+      }
+    }
+  }
+}
+</code></pre>
+<p>通过GET获取建立的规则</p>
+<pre><code>GET /test2
+</code></pre>
+<p>添加数据</p>
+<pre><code>PUT /test2/_doc/1
+{
+  &quot;name&quot;: &quot;这里就叫卢本伟广场好了&quot;,
+  &quot;age&quot;: 19,
+  &quot;birthday&quot;: &quot;2022-12-19&quot;
+}
+</code></pre>
+<p><strong>如果自己的文档字段没有被指定，那么ElasticSearch就会给我们默认配置字段类型</strong></p>
+<p>扩展：通过<code>GET _cat/xx</code> 可以获取ElasticSearch的当前的很多信息！</p>
+<pre><code>GET _cat/indices
+GET _cat/aliases
+GET _cat/allocation
+GET _cat/count
+GET _cat/fielddata
+GET _cat/health
+GET _cat/indices
+GET _cat/master
+GET _cat/nodeattrs
+GET _cat/nodes
+GET _cat/pending_tasks
+GET _cat/plugins
+GET _cat/recovery
+GET _cat/repositories
+GET _cat/segments
+GET _cat/shards
+GET _cat/snapshots
+GET _cat/tasks
+GET _cat/templates
+GET _cat/thread_pool
+</code></pre>
+
+
+<h5 class="relative group">4. 修改 
+    <div id="4-%E4%BF%AE%E6%94%B9" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#4-%E4%BF%AE%E6%94%B9" aria-label="Anchor">#</a>
+    </span>        
+    
+</h5>
+<ul>
+<li>
+<p><strong>旧的方法</strong>（使用put覆盖原来的值）</p>
+<ul>
+<li>版本+1（_version）</li>
+<li>但是如果漏掉某个字段没有写，那么更新是没有写的字段 ，会消失</li>
+</ul>
+<p>PUT /test2/_doc/1
+{
+&ldquo;name&rdquo;: &ldquo;这里就叫卢本伟广场&rdquo;,
+&ldquo;birthday&rdquo;: &ldquo;2022-12-19&rdquo;
+}</p>
+</li>
+</ul>
+<p>es-head中对应记录的age字段消失</p>
+<ul>
+<li>
+<p><strong>新的方法</strong>（使用post的update）</p>
+<ul>
+<li>version不会改变</li>
+<li>需要注意doc</li>
+<li>不会丢失字段</li>
+</ul>
+<p>POST /test2/_doc/2/_update
+{
+&ldquo;doc&rdquo;: {
+&ldquo;age&rdquo;: 122,
+&ldquo;birthday&rdquo;: &ldquo;1919-10-10&rdquo;
+}
+}</p>
+</li>
+</ul>
+<p>没有指定&quot;name&quot;并不会导致他的“name”丢失<br>
+
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/8eac1644880d72f539c07c4276e74758_hu4048472301397380051.png 330w,
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/8eac1644880d72f539c07c4276e74758_hu18087687657433349774.png 660w,
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/8eac1644880d72f539c07c4276e74758_hu18299997818588446517.png 1024w,
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/8eac1644880d72f539c07c4276e74758_hu2751044034120580562.png 2x"
+        src="/blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/8eac1644880d72f539c07c4276e74758_hu18087687657433349774.png"
+        alt=""
+      />
+      
+    </figure>
+</p>
+
+
+<h5 class="relative group">5. 删除 
+    <div id="5-%E5%88%A0%E9%99%A4" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#5-%E5%88%A0%E9%99%A4" aria-label="Anchor">#</a>
+    </span>        
+    
+</h5>
+<pre><code>删除索引
+DELETE /test1
+删除文档
+DELETE /test2/_doc/1
+</code></pre>
+
+
+<h5 class="relative group">6. 查询 
+    <div id="6-%E6%9F%A5%E8%AF%A2" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#6-%E6%9F%A5%E8%AF%A2" aria-label="Anchor">#</a>
+    </span>        
+    
+</h5>
+<ul>
+<li>
+<p>简单查询</p>
+<p>GET /test2/_doc/_search?q=birthday:2022-12-19</p>
+</li>
+<li>
+<p>匹配查询</p>
+<ul>
+<li><code>match</code>：匹配（会使用分词器解析（先分析文档，然后进行查询））</li>
+<li><code>_source</code>：过滤字段，即要获取的字段</li>
+<li><code>sort</code>：排序</li>
+<li><code>form</code>、<code>size</code> 分页</li>
+</ul>
+<p>GET /test2/_doc/_search   (现在不用写_doc，直接GET /test2/_serach 就行)
+{
+&ldquo;query&rdquo;: {
+&ldquo;match&rdquo;: {
+&ldquo;name&rdquo;: &ldquo;中国饭&rdquo;
+}
+},
+&ldquo;_source&rdquo;: [  //获取name 和 age
+&ldquo;name&rdquo;,
+&ldquo;age&rdquo;
+],
+&ldquo;sort&rdquo;: [
+{
+&ldquo;age&rdquo;: {
+&ldquo;order&rdquo;: &ldquo;asc&rdquo;
+}
+}
+],
+&ldquo;from&rdquo;: 0,  //from是第几个开始 不是第几页
+&ldquo;size&rdquo;: 15  //一页多少个
+}</p>
+</li>
+</ul>
+<p><strong>匹配的方法与sql的like不同</strong><br>
+
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/addeec5d40860db593cfd8d0c7c7f1a2_hu11746420674312165374.png 330w,
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/addeec5d40860db593cfd8d0c7c7f1a2_hu7447364979499086389.png 660w,
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/addeec5d40860db593cfd8d0c7c7f1a2_hu853484263485051690.png 1024w,
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/addeec5d40860db593cfd8d0c7c7f1a2_hu10426101532349034134.png 2x"
+        src="/blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/addeec5d40860db593cfd8d0c7c7f1a2_hu7447364979499086389.png"
+        alt="在这里插入图片描述"
+      />
+      
+    </figure>
+</p>
+<ul>
+<li>
+<p>多条件查询（bool)</p>
+<ul>
+<li><code>must</code> 相当于 <code>and</code></li>
+<li><code>should</code> 相当于 <code>or</code></li>
+<li><code>must_not</code> 相当于 <code>not (... and ...)</code></li>
+<li><code>filter</code> 过滤</li>
+</ul>
+<p>GET /test2/_search
+{
+&ldquo;query&rdquo;:{
+&ldquo;bool&rdquo;: {
+&ldquo;must&rdquo;: [
+{
+&ldquo;match&rdquo;: { &ldquo;birthday&rdquo;: &ldquo;2022-12-19&rdquo; }
+}
+],
+&ldquo;should&rdquo;: [
+{
+&ldquo;match&rdquo;: { &ldquo;name&rdquo;: &ldquo;这里就叫卢本伟广场&rdquo; }
+},
+{
+&ldquo;match&rdquo;: { &ldquo;name&rdquo;: &ldquo;吃&rdquo; }
+}
+],
+&ldquo;filter&rdquo;: {
+&ldquo;range&rdquo;: {
+&ldquo;age&rdquo;: { &ldquo;gte&rdquo;: 0, &ldquo;lte&rdquo;: 120 }
+}
+}
+}
+}
+}</p>
+</li>
+<li>
+<p>匹配数组</p>
+<ul>
+<li>可以多关键字查（空格隔开）— 匹配字段也是符合的</li>
+<li><code>match</code> 会使用分词器解析（先分析文档，然后进行查询）</li>
+<li>搜词</li>
+</ul>
+</li>
+</ul>
+<p>先创建这样的文档</p>
+<pre><code>PUT /test1/_doc/1    
+{
+  &quot;id&quot;: &quot;10001&quot;,
+  &quot;name&quot;: &quot;麻黄散&quot;,
+  &quot;ingredient&quot;: [
+    &quot;当归&quot;, &quot;吴茱萸&quot;, &quot;大黄&quot;
+  ]
+}
+</code></pre>
+<p>再进行查询</p>
+<pre><code>GET /test1/_search
+{
+  &quot;query&quot;:{
+    &quot;match&quot;:{
+      &quot;ingredient&quot;:&quot;白术 当归 大黄 仓鼠&quot;  //默认将所有结果or起来
+    }
+  }
+}
+</code></pre>
+<p>结果</p>
+<pre><code>&quot;hits&quot; : [
+      {
+        &quot;_id&quot; : &quot;6&quot;,
+        &quot;_score&quot; : 4.2601705,
+        &quot;_source&quot; : { &quot;id&quot; : &quot;10006&quot;, &quot;name&quot; : &quot;药方6&quot;, &quot;ingredient&quot; : [&quot;当归&quot;,&quot;白术&quot;,&quot;大黄&quot;] }
+      },
+      {
+        &quot;_id&quot; : &quot;1&quot;,
+        &quot;_score&quot; : 3.0661612,
+        &quot;_source&quot; : { &quot;id&quot; : &quot;10001&quot;, &quot;name&quot; : &quot;麻黄散&quot;, &quot;ingredient&quot; : [&quot;当归&quot;,&quot;吴茱萸&quot;,&quot;大黄&quot;] }
+      },
+      {
+        &quot;_id&quot; : &quot;5&quot;,
+        &quot;_score&quot; : 1.7683537,
+        &quot;_source&quot; : { &quot;id&quot; : &quot;10005&quot;, &quot;name&quot; : &quot;药方5&quot;, &quot;ingredient&quot; : [&quot;大黄&quot;,&quot;龙胆草&quot;,&quot;木香&quot;] }
+      },
+      {
+        &quot;_id&quot; : &quot;2&quot;,
+        &quot;_score&quot; : 1.2978076,
+        &quot;_source&quot; : { &quot;id&quot; : &quot;10002&quot;, &quot;name&quot; : &quot;药方2&quot;, &quot;ingredient&quot; : [&quot;百合&quot;,&quot;当归&quot;,&quot;浙贝母&quot;] }
+      },
+      {
+        &quot;_id&quot; : &quot;3&quot;,
+        &quot;_score&quot; : 1.1404719,
+        &quot;_source&quot; : { &quot;id&quot; : &quot;10003&quot;, &quot;name&quot; : &quot;药方3&quot;, &quot;ingredient&quot; : [&quot;白术&quot;,&quot;百合&quot;] }
+      }
+    ]
+</code></pre>
+<ul>
+<li>
+<p>精确查询</p>
+<ul>
+<li><code>term</code> 直接通过 倒排索引 指定<strong>词条</strong>查询</li>
+<li>适合查询 number、date、keyword ，不适合text</li>
+</ul>
+<p>// 精确查询（必须全部都有，而且不可分，即按一个完整的词查询）
+// term 直接通过 倒排索引 指定的词条 进行精确查找的
+GET /test1/_search
+{
+&ldquo;query&rdquo;:{
+&ldquo;term&rdquo;:{
+&ldquo;ingredient&rdquo;: &ldquo;白&rdquo;  //这里用白能搜出来，但是白术就搜不出来了，是中文分词的问题
+//用match_phrase代替term 或 修改索引中ingredient的analyzer为ik
+}
+}
+}</p>
+</li>
+</ul>
+<p><strong>text在查询时会被分词器分析，keyword整体进行查询不分词</strong></p>
+<p>手动指定类型为keyword</p>
+<pre><code>PUT /test3
+{
+  &quot;mappings&quot;: {
+    &quot;properties&quot;: {
+      &quot;name&quot;: { &quot;type&quot;: &quot;text&quot; },
+      &quot;id&quot;: { &quot;type&quot;: &quot;long&quot; },
+      &quot;ingredient&quot;: { &quot;type&quot;: &quot;keyword&quot; }
+    }
+  }
+}
+</code></pre>
+<p>插入数据</p>
+<pre><code>PUT /test3/_doc/1
+{
+  &quot;name&quot;: &quot;中药1&quot;,
+  &quot;id&quot;: 121,
+  &quot;ingredient&quot;: [ &quot;白术&quot;, &quot;当归&quot;, &quot;浙贝母&quot; ]
+}
+</code></pre>
+<p>查询数据</p>
+<pre><code>//单独查询一个关键词
+GET /test3/_search
+{
+  &quot;query&quot;: {
+    &quot;term&quot;: {
+      &quot;ingredient&quot;: &quot;白术&quot;  //白术能查出来，白、白术1查不出来
+    }
+  }
+}
+//查询多个关键词
+//  1.只要包含里面的其中一个都会被查出来，所有记录score都为1
+GET /test3/_search
+{
+  &quot;query&quot;: {
+    &quot;terms&quot;: {
+      &quot;ingredient&quot;: [&quot;白术&quot;, &quot;麻药&quot;, &quot;的使劲地发&quot;]  
+    }
+  }
+}
+//  2.需要包含所有指定的词
+GET /test3/_search
+{
+  &quot;query&quot;: {
+    &quot;bool&quot;: {
+      &quot;must&quot;: [
+        { &quot;term&quot;: { &quot;ingredient&quot;: &quot;白术&quot; } },
+        { &quot;term&quot;: { &quot;ingredient&quot;: &quot;麻药&quot; } }
+      ]
+    }
+  }
+}
+//  3.包含其中一个就可以，包含的越多score越高
+GET /test3/_search
+{
+  &quot;query&quot;: {
+    &quot;bool&quot;: {
+      &quot;should&quot;: [
+        { &quot;term&quot;: { &quot;ingredient&quot;: &quot;白术&quot; } },
+        { &quot;term&quot;: { &quot;ingredient&quot;: &quot;麻药&quot; } },
+        { &quot;term&quot;: { &quot;ingredient&quot;: &quot;吴恩达&quot; } }
+      ]
+    }
+  }
+}
+</code></pre>
+<p>设置为keyword后，不管查询方式是match还是term，如果不完全相等都不会被查出来，查询”白术“时，“白术1”就查不出来，这是由keyword的性质决定的，不取决于查询的方式。而在之前未指定keyword的例子中，查询 “白术1”、“白魔术” 都是可以查出来的。</p>
+<ul>
+<li>
+<p>模糊查询</p>
+<ul>
+<li><code>wildcard</code> 查询条件分词模糊查询</li>
+<li><code>regexp</code> 正则查询</li>
+<li><code>prefix</code> 前缀查询</li>
+</ul>
+<p>GET /test3/_search
+{
+&ldquo;query&rdquo;: {
+&ldquo;wildcard&rdquo;: {
+&ldquo;ingredient&rdquo;: &ldquo;白*&rdquo;   //查出白 白术 白术1 白芷
+}
+}
+}
+GET /test3/_search
+{
+&ldquo;query&rdquo;: {
+&ldquo;wildcard&rdquo;: {
+&ldquo;ingredient&rdquo;: &ldquo;白??&rdquo;  //查出白术1
+}
+}
+}</p>
+</li>
+</ul>
+<p>不要在搜索字段的前面加通配符，不然会像数据库一样扫描一遍整个表去匹配数据</p>
+
+
+<h5 class="relative group">7. 高亮 
+    <div id="7-%E9%AB%98%E4%BA%AE" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#7-%E9%AB%98%E4%BA%AE" aria-label="Anchor">#</a>
+    </span>        
+    
+</h5>
+<p>可以设置高亮，让查询到的字词凸显出来</p>
+<pre><code>GET /test1/_search
+{
+  &quot;query&quot;:{
+    &quot;match&quot;:{
+      &quot;ingredient&quot;:&quot;白术 当归&quot;
+    }
+  },
+  &quot;highlight&quot;: {
+    &quot;pre_tags&quot;: &quot;&lt;span class='key'&gt;&quot;, //指定前缀 默认&lt;em&gt;
+    &quot;post_tags&quot;: &quot;&lt;/span&gt;&quot;, 		  //指定后缀 默认&lt;/em&gt;
+    &quot;fields&quot;: {
+      &quot;ingredient&quot;: {}				  //指定高亮字段
+    }
+  }
+}
+</code></pre>
+<p>结果</p>
+<pre><code>{
+    &quot;_id&quot; : &quot;6&quot;,
+    &quot;_score&quot; : 2.3712473,
+    &quot;_source&quot; : {
+       &quot;id&quot; : &quot;10006&quot;,
+       &quot;name&quot; : &quot;药方6&quot;,
+       &quot;ingredient&quot; : [ &quot;当归&quot;, &quot;白术&quot;, &quot;大黄&quot; ]
+    },
+    &quot;highlight&quot; : {
+       &quot;ingredient&quot; : [
+         &quot;&lt;span class='key'&gt;当&lt;/span&gt;&lt;span class='key'&gt;归&lt;/span&gt;&quot;,
+         &quot;&lt;span class='key'&gt;白&lt;/span&gt;&lt;span class='key'&gt;术&lt;/span&gt;&quot;
+       ]
+    }
+}
+</code></pre>
+
+
+<h5 class="relative group">8. 最小匹配度 
+    <div id="8-%E6%9C%80%E5%B0%8F%E5%8C%B9%E9%85%8D%E5%BA%A6" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#8-%E6%9C%80%E5%B0%8F%E5%8C%B9%E9%85%8D%E5%BA%A6" aria-label="Anchor">#</a>
+    </span>        
+    
+</h5>
+<p>当输入一串很长的文本，使用match对其进行搜索时，会搜出来一大堆不相关的东西。</p>
+<p>比如输入 “福曦堂 四川白芍 生白芍 白芍片 芍药 中药材 可磨白芍粉也可搭配川芎 当归使用 精选货 白芍250克*1罐 福曦堂 四川白芍 生白芍 白芍片 芍药 中药材 可磨白芍粉也可搭配川芎 当归使用 精选货 白芍”，搜索结果：</p>
+<pre><code>&quot;hits&quot; : {
+    &quot;total&quot; : {
+      &quot;value&quot; : 263,  // 搜到了好多没用的
+      &quot;relation&quot; : &quot;eq&quot;
+    },
+    &quot;max_score&quot; : 229.36502,
+    &quot;hits&quot; : [
+        ...
+    ]
+}     
+</code></pre>
+<p>highlight一下看一下那些不相关的他怎么匹配的<br>
+
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/766133fffa675748030e28f0e67ef518_hu2689128744156948661.png 330w,
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/766133fffa675748030e28f0e67ef518_hu15945310625136502463.png 660w,
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/766133fffa675748030e28f0e67ef518_hu11088567014234143420.png 1024w,
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/766133fffa675748030e28f0e67ef518_hu5353209783095557652.png 2x"
+        src="/blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/766133fffa675748030e28f0e67ef518_hu15945310625136502463.png"
+        alt="在这里插入图片描述"
+      />
+      
+    </figure>
+<br>
+所以我们使用minimum_should_match来过滤一些无关内容。<br>
+当搜索“Sip on La Croix”时，分词器会将其解析成：</p>
+<pre><code>{ 
+  &quot;bool&quot;: { 
+    &quot;should&quot;: [ 
+      { &quot;term&quot;: { &quot;body&quot;: &quot;Sip&quot;}}, 
+      { &quot;term&quot;: { &quot;body&quot;: &quot;on&quot;}}, 
+      { &quot;term&quot;: { &quot;body&quot;: &quot;La&quot;}},
+      { &quot;term&quot;: { &quot;body&quot;: &quot;Croix&quot;}},
+    ]
+  } 
+} 
+</code></pre>
+<p>当我们指定minimum_should_match后，他会根据你指定的值来进行结果的筛选。具体如下图</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/01df34e146334b909f1859ca5eebc6dd_hu9833061962744122909.png 330w,
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/01df34e146334b909f1859ca5eebc6dd_hu10665568248488584283.png 660w,
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/01df34e146334b909f1859ca5eebc6dd_hu12650483930164350213.png 1024w,
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/01df34e146334b909f1859ca5eebc6dd_hu7252575154492024067.png 2x"
+        src="/blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/01df34e146334b909f1859ca5eebc6dd_hu10665568248488584283.png"
+        alt="auto-orient,1"
+      />
+      
+    </figure>
+</p>
+<p>使用</p>
+<pre><code>GET /goods-temp/_search 
+{
+  &quot;query&quot;: {
+    &quot;match&quot;: {
+      &quot;title&quot;: {
+        &quot;query&quot;: &quot;福曦堂 四川白芍 生白芍 白芍片 芍药 中药材 可磨白芍粉也可搭配川芎 当归使用 精选货 白芍250克*1罐 福曦堂 四川白芍 生白芍 白芍片 芍药 中药材 可磨白芍粉也可搭配川芎 当归使用 精选货 白芍&quot;,
+        &quot;minimum_should_match&quot;: &quot;4&lt;40%&quot;
+      }
+    }
+  }
+}
+//结果
+&quot;hits&quot; : {
+    &quot;total&quot; : {
+      &quot;value&quot; : 7,
+      &quot;relation&quot; : &quot;eq&quot;
+    },
+    &quot;max_score&quot; : 229.36502,
+    &quot;hits&quot; : [
+      {
+        &quot;_score&quot; : 229.36502,
+        &quot;_source&quot; : { &quot;title&quot; : &quot;福曦堂 四川白芍 生白芍 白芍片 芍药 中药材 可磨白芍粉也可搭配川芎 当归使用 精选货 白芍250克*1罐 福曦堂 四川白芍 生白芍 白芍片 芍药 中药材 可磨白芍粉也可搭配川芎 当归使用 精选货 白芍250克*1罐&quot; }
+      },
+      {
+        &quot;_score&quot; : 67.59854,
+        &quot;_source&quot; : { &quot;title&quot; : &quot;京东超市 福东海 川芎片250克/袋 中药材当归白芍川芎粉熟地四物汤原料川穹 川芎茶 【五一秒杀特惠,2件9折】宁夏原产红枸杞500克2件到手均件价35.9元！上浮率92%以上,大颗足干,新鲜无硫，活动时间:5月2日20点-3日20点点击&quot; }
+      },
+      {
+        &quot;_score&quot; : 67.06959,
+        &quot;_source&quot; : { &quot;title&quot; : &quot;福曦堂土茯苓 四川土茯苓 中药材 土茯苓干货 精选货 土茯苓500克*1袋 福曦堂土茯苓 四川土茯苓 中药材 土茯苓干货 精选货 土茯苓500克*1袋&quot; }
+      },
+      { 
+        &quot;_score&quot; : 62.90972,
+        &quot;_source&quot; : { &quot;title&quot; : &quot;北京同仁堂四物汤膏搭四物汤中药材颗粒汤包四君子汤搭当归白芍川芎熟地黄八珍膏补f气血不足月经不调怡福寿 1支装 北京同仁堂四物汤膏搭四物汤中药材颗粒汤包四君子汤搭当归白芍川芎熟地黄八珍膏补f气血不足月经不调怡福寿 1支装&quot; }
+      },
+      {
+        &quot;_score&quot; : 58.995457,
+        &quot;_source&quot; : { &quot;title&quot; : &quot;福曦堂沙苑子 沙苑蒺藜 沙菀子潼蒺藜可代磨沙苑子粉 中药材 沙苑子250克*1罐 福曦堂沙苑子 沙苑蒺藜 沙菀子潼蒺藜可代磨沙苑子粉 中药材 沙苑子250克*1罐&quot; }
+      },
+      { 
+        &quot;_score&quot; : 55.16248,
+        &quot;_source&quot; : { &quot;title&quot; : &quot;福东海四物汤中药材当归熟地黄川穹白芍四物汤原料 4袋*10包（共400g） 超值特惠全店所有商品2件9折，活动时间4月26日-5月5日。热销产品买二送一···&quot; }
+      },
+      { 
+        &quot;_score&quot; : 49.526695,
+        &quot;_source&quot; : { &quot;title&quot; : &quot;世斛堂 生何首乌片 四川何首乌中药材切片何首乌干片精选可泡水煮粥煲汤 何首乌-1000克 精选正品原料，保证质量售后，让购买放心无忧。&quot; }
+      }
+    ]
+  }
+</code></pre>
+<p>不过没有达到我想要的效果，以后再研究。</p>
+
+
+<h3 class="relative group">集成SpringBoot 
+    <div id="%E9%9B%86%E6%88%90springboot" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E9%9B%86%E6%88%90springboot" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<p>SpringBoot: 2.2.1.RELEASE</p>
+<p>ElasticSearch: 7.6.2</p>
+
+
+<h5 class="relative group">1. 创建空Maven项目，指定es的version 
+    <div id="1-%E5%88%9B%E5%BB%BA%E7%A9%BAmaven%E9%A1%B9%E7%9B%AE%E6%8C%87%E5%AE%9Aes%E7%9A%84version" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#1-%E5%88%9B%E5%BB%BA%E7%A9%BAmaven%E9%A1%B9%E7%9B%AE%E6%8C%87%E5%AE%9Aes%E7%9A%84version" aria-label="Anchor">#</a>
+    </span>        
+    
+</h5>
+<pre><code>&lt;!-- pom.xml --&gt;
+&lt;properties&gt;
+    &lt;java.version&gt;8&lt;/java.version&gt;
+    &lt;elasticsearch.version&gt;7.6.2&lt;/elasticsearch.version&gt;
+&lt;/properties&gt;
+</code></pre>
+
+
+<h5 class="relative group">2. 依赖 
+    <div id="2-%E4%BE%9D%E8%B5%96" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#2-%E4%BE%9D%E8%B5%96" aria-label="Anchor">#</a>
+    </span>        
+    
+</h5>
+<pre><code>&lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-starter-data-elasticsearch&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.alibaba&lt;/groupId&gt;
+            &lt;artifactId&gt;fastjson&lt;/artifactId&gt;
+            &lt;version&gt;1.2.79&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;
+            &lt;artifactId&gt;lombok&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+&lt;/dependencies&gt;
+</code></pre>
+
+
+<h5 class="relative group">3. 配置ElasticSearchClientConfig配置类，添加Bean 
+    <div id="3-%E9%85%8D%E7%BD%AEelasticsearchclientconfig%E9%85%8D%E7%BD%AE%E7%B1%BB%E6%B7%BB%E5%8A%A0bean" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#3-%E9%85%8D%E7%BD%AEelasticsearchclientconfig%E9%85%8D%E7%BD%AE%E7%B1%BB%E6%B7%BB%E5%8A%A0bean" aria-label="Anchor">#</a>
+    </span>        
+    
+</h5>
+<pre><code>@Configuration
+public class ElasticSearchClientConfig {
+
+    @Bean
+    public RestHighLevelClient restHighLevelClient() {
+        RestHighLevelClient client = new RestHighLevelClient(
+                RestClient.builder(
+                        new HttpHost(&quot;localhost&quot;, 9200, &quot;http&quot;)
+                )
+        );
+        return client;
+    }
+}
+</code></pre>
+
+
+<h5 class="relative group">4. 创建实体类 
+    <div id="4-%E5%88%9B%E5%BB%BA%E5%AE%9E%E4%BD%93%E7%B1%BB" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#4-%E5%88%9B%E5%BB%BA%E5%AE%9E%E4%BD%93%E7%B1%BB" aria-label="Anchor">#</a>
+    </span>        
+    
+</h5>
+<pre><code>@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Prescription implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    private Long id;
+
+    private String name;
+
+    private List&lt;String&gt; ingredient;
+
+}
+</code></pre>
+
+
+<h5 class="relative group">5. 测试 
+    <div id="5-%E6%B5%8B%E8%AF%95" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#5-%E6%B5%8B%E8%AF%95" aria-label="Anchor">#</a>
+    </span>        
+    
+</h5>
+<blockquote>
+<p>注入RestHighLevelClient</p>
+</blockquote>
+<pre><code> @Autowired
+ private RestHighLevelClient client;
+</code></pre>
+
+
+<h6 class="relative group">1. 测试索引 
+    <div id="1-%E6%B5%8B%E8%AF%95%E7%B4%A2%E5%BC%95" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#1-%E6%B5%8B%E8%AF%95%E7%B4%A2%E5%BC%95" aria-label="Anchor">#</a>
+    </span>        
+    
+</h6>
+<blockquote>
+<p>创建索引</p>
+</blockquote>
+<pre><code>@Test
+public void createIndex() throws IOException {
+    //配置索引
+    CreateIndexRequest request = new CreateIndexRequest(&quot;test4&quot;);
+    CreateIndexResponse response = client.indices().create(request, RequestOptions.DEFAULT);
+
+    System.out.println(&quot;是否创建成功:&quot; + response.isAcknowledged());
+    System.out.println(&quot;返回对象:&quot; + response);
+    client.close();
+}
+</code></pre>
+<blockquote>
+<p>获取索引</p>
+</blockquote>
+<pre><code>@Test
+public void queryIndex() throws IOException {
+    GetIndexRequest request = new GetIndexRequest(&quot;test4&quot;);
+    //是否存在：client.indices().exists(request, RequestOptions.DEFAULT);
+    GetIndexResponse response = client.indices().get(request, RequestOptions.DEFAULT);
+    System.out.println(response);
+    client.close();
+}
+</code></pre>
+<blockquote>
+<p>删除索引</p>
+</blockquote>
+<pre><code>@Test
+public void deleteIndex() throws IOException {
+    DeleteIndexRequest request = new DeleteIndexRequest(&quot;test4&quot;);
+    AcknowledgedResponse response = client.indices().delete(request, RequestOptions.DEFAULT);
+    System.out.println(response);
+    client.close();
+}
+</code></pre>
+
+
+<h6 class="relative group">2. 文档操作 
+    <div id="2-%E6%96%87%E6%A1%A3%E6%93%8D%E4%BD%9C" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#2-%E6%96%87%E6%A1%A3%E6%93%8D%E4%BD%9C" aria-label="Anchor">#</a>
+    </span>        
+    
+</h6>
+<blockquote>
+<p>添加文档</p>
+</blockquote>
+<ul>
+<li>
+<p>添加单条记录</p>
+<p>@Test
+public void addDocument() throws IOException {
+Prescription prescription = new Prescription();
+prescription.setId(10009L);
+prescription.setName(&ldquo;麻黄散他爹&rdquo;);
+List<String> list = new ArrayList&lt;&gt;();
+list.add(&ldquo;当归&rdquo;);
+list.add(&ldquo;人参&rdquo;);
+list.add(&ldquo;阿胶&rdquo;);
+prescription.setIngredient(list);</p>
+<pre><code>IndexRequest request = new IndexRequest(&quot;test3&quot;);  //Index
+request.id(&quot;9&quot;);
+request.timeout(TimeValue.timeValueMillis(2000));
+request.source(JSON.toJSONString(prescription), XContentType.JSON);
+IndexResponse response = client.index(request, RequestOptions.DEFAULT);
+System.out.println(response.status());
+client.close();
+</code></pre>
+<p>}</p>
+</li>
+<li>
+<p>添加多条记录</p>
+<p>@Test
+public void addDocumentBatch() throws IOException {
+BulkRequest request = new BulkRequest(&ldquo;test3&rdquo;);  //Global Index</p>
+<pre><code>List&lt;Prescription&gt; list = new ArrayList&lt;&gt;();
+list.add(new Prescription(10L, &quot;10&quot;, null));
+list.add(new Prescription(11L, &quot;11&quot;, null));
+list.add(new Prescription(12L, &quot;12&quot;, null));
+list.add(new Prescription(13L, &quot;13&quot;, null));
+list.forEach(item -&gt; {
+    request.add(new IndexRequest()
+            .id(item.getId().toString())
+            .source(JSON.toJSONString(item), XContentType.JSON));
+});
+
+BulkResponse response = client.bulk(request, RequestOptions.DEFAULT);
+System.out.println(response.status());
+client.close();
+</code></pre>
+<p>}</p>
+</li>
+</ul>
+<blockquote>
+<p>查找文档</p>
+</blockquote>
+<pre><code>@Test
+public void getDocument() throws IOException {
+    GetRequest request = new GetRequest(&quot;test3&quot;, &quot;9&quot;);
+    GetResponse response = client.get(request, RequestOptions.DEFAULT);
+    System.out.println(response.getSourceAsString());
+    client.close();
+}
+</code></pre>
+<blockquote>
+<p>更新文档</p>
+</blockquote>
+<pre><code>@Test
+public void updateDocument() throws IOException {
+    UpdateRequest request = new UpdateRequest(&quot;test3&quot;, &quot;9&quot;);
+    Prescription prescription = new Prescription();
+    //只对name进行更新,其他字段不会变
+    prescription.setName(&quot;卢本伟&quot;);
+    request.doc(JSON.toJSONString(prescription), XContentType.JSON);
+    UpdateResponse response = client.update(request, RequestOptions.DEFAULT);
+    System.out.println(response);
+    System.out.println(response.status());
+    client.close();
+}
+</code></pre>
+<blockquote>
+<p>删除文档</p>
+</blockquote>
+<pre><code>@Test
+public void deleteDocument() throws IOException {
+    DeleteRequest request = new DeleteRequest(&quot;test3&quot;, &quot;9&quot;);
+    DeleteResponse response = client.delete(request, RequestOptions.DEFAULT);
+    System.out.println(response);
+    client.close();
+}
+</code></pre>
+<blockquote>
+<p>查询文档</p>
+</blockquote>
+<pre><code>@Test
+public void searchDocument() throws IOException {
+    SearchRequest request = new SearchRequest(&quot;test3&quot;);
+
+    //查询条件
+    SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+    //Term
+    TermQueryBuilder termQueryBuilder = new TermQueryBuilder(&quot;ingredient&quot;, &quot;当归&quot;);
+    //Match
+    MatchQueryBuilder matchQueryBuilder = new MatchQueryBuilder(&quot;ingredient&quot;, &quot;当归&quot;);
+    //HighLight
+    HighlightBuilder highlightBuilder = new HighlightBuilder();
+    highlightBuilder.field(&quot;ingredient&quot;);
+    searchSourceBuilder.highlighter(highlightBuilder);
+    //Page
+    searchSourceBuilder.from(0);
+    searchSourceBuilder.size(10);
+
+    searchSourceBuilder.query(termQueryBuilder);
+    request.source(searchSourceBuilder);
+    SearchResponse response = client.search(request, RequestOptions.DEFAULT);
+
+    System.out.println(response.getHits().getTotalHits());
+    response.getHits().forEach(System.out::println);
+    client.close();
+}
+</code></pre>
+
+
+<h3 class="relative group">仿京东搜索 
+    <div id="%E4%BB%BF%E4%BA%AC%E4%B8%9C%E6%90%9C%E7%B4%A2" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E4%BB%BF%E4%BA%AC%E4%B8%9C%E6%90%9C%E7%B4%A2" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+
+
+<h5 class="relative group">1. 解析京东网页获取数据放入ES 
+    <div id="1-%E8%A7%A3%E6%9E%90%E4%BA%AC%E4%B8%9C%E7%BD%91%E9%A1%B5%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE%E6%94%BE%E5%85%A5es" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#1-%E8%A7%A3%E6%9E%90%E4%BA%AC%E4%B8%9C%E7%BD%91%E9%A1%B5%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE%E6%94%BE%E5%85%A5es" aria-label="Anchor">#</a>
+    </span>        
+    
+</h5>
+<blockquote>
+<p>引入依赖</p>
+</blockquote>
+<pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;org.jsoup&lt;/groupId&gt;
+    &lt;artifactId&gt;jsoup&lt;/artifactId&gt;
+    &lt;version&gt;1.10.2&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+<blockquote>
+<p>创建HtmlContent类</p>
+</blockquote>
+<pre><code>@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class HtmlContent implements Serializable {
+
+    private String title;
+
+    private String price;
+
+    private String img;
+}
+</code></pre>
+<blockquote>
+<p>解析京东网页</p>
+</blockquote>
+<pre><code>public class HtmlParseUtil {
+
+    public static List&lt;HtmlContent&gt; parseJD(String keyword, int pageNum) {
+        List&lt;HtmlContent&gt; list = new ArrayList&lt;&gt;();
+        for (int i = 1; i &lt;= pageNum; i++) {
+            String url = &quot;https://search.jd.com/Search?keyword=#1&amp;enc=utf-8&amp;wq=#1&amp;page=#2&quot;
+                    .replaceAll(&quot;#1&quot;, keyword)
+                    .replaceAll(&quot;#2&quot;, String.valueOf(i));
+            Document doc = null;
+            try {
+                doc = Jsoup.parse(new URL(url), 3000);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Element goodsList = doc.getElementById(&quot;J_goodsList&quot;);
+            Elements lis = goodsList.getElementsByTag(&quot;li&quot;);
+            for (Element li : lis) {
+                String img = li.getElementsByTag(&quot;img&quot;).eq(0).attr(&quot;data-lazy-img&quot;);
+                String price = li.getElementsByClass(&quot;p-price&quot;).eq(0).text();
+                String title = li.getElementsByClass(&quot;p-name&quot;).eq(0).text();
+                list.add(new HtmlContent(title, price, img));
+            }
+        }
+        return list;
+    }
+}
+</code></pre>
+<blockquote>
+<p>配置ElasticSearchClientConfig</p>
+</blockquote>
+<pre><code>@Configuration
+public class ElasticSearchClientConfig {
+
+    @Bean
+    public RestHighLevelClient restHighLevelClient() {
+        RestHighLevelClient client = new RestHighLevelClient(RestClient.builder(
+                new HttpHost(&quot;localhost&quot;, 9200, &quot;http&quot;)));
+        return client;
+    }
+}
+</code></pre>
+<blockquote>
+<p>创建ContentService</p>
+</blockquote>
+<pre><code>@Service
+public class ContentService {
+
+    @Autowired
+    RestHighLevelClient client;
+
+    /**
+     * 分析页面，将商品添加到ES中
+     * @param keyword 搜索关键词
+     * @param pageNum 搜索京东上几页的内容
+     * @return
+     */
+    public Boolean addContent(String keyword, int pageNum) {
+        List&lt;HtmlContent&gt; list = HtmlParseUtil.parseJD(keyword, pageNum);
+        BulkRequest bulkRequest = new BulkRequest(&quot;goods&quot;);
+        list.forEach(content -&gt; {
+            bulkRequest.add(new IndexRequest()
+                    .source(JSON.toJSONString(content), XContentType.JSON));
+        });
+        try {
+            BulkResponse response = client.bulk(bulkRequest, RequestOptions.DEFAULT);
+            return !response.hasFailures();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+}
+</code></pre>
+<blockquote>
+<p>创建ContentController</p>
+</blockquote>
+<pre><code>@RestController
+public class ContentController {
+
+    @Autowired
+    ContentService contentService;
+
+    @GetMapping(&quot;/add/{keyword}/{pageNum}&quot;)
+    public R addContent(@PathVariable String keyword, @PathVariable Integer pageNum) {
+        System.out.println(&quot;keyword: &quot; + keyword + &quot;, pageNum:&quot; + pageNum);
+        Boolean flag = contentService.addContent(keyword, pageNum);
+        return flag ? R.ok() : R.error();
+    }
+}
+</code></pre>
+
+
+<h5 class="relative group">2. 搜索功能实现 
+    <div id="2-%E6%90%9C%E7%B4%A2%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#2-%E6%90%9C%E7%B4%A2%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0" aria-label="Anchor">#</a>
+    </span>        
+    
+</h5>
+<blockquote>
+<p>Service</p>
+</blockquote>
+<pre><code>/**
+ * 检索功能
+ * @param keyword 搜索的关键词
+ * @param pageNo 第几页 最小为0
+ * @param pageSize 一页几个
+ * @param searchForContent 用于搜索框提示输入还是用于在页面上展示商品
+ * @return
+ */
+public Map&lt;String, Object&gt; search(String keyword, Integer pageNo, Integer pageSize, Boolean searchForContent) {
+    SearchRequest request = new SearchRequest(&quot;goods&quot;);
+    SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+    if (!searchForContent) { //搜索框提示输入
+        //只需要获取title
+        searchSourceBuilder.fetchSource(&quot;title&quot;, null);
+        BoolQueryBuilder boolQueryBuilder = new BoolQueryBuilder();
+        String[] keywords = keyword.split(&quot; &quot;);
+        for (String word : keywords) {
+            boolQueryBuilder.must(new MatchPhraseQueryBuilder(&quot;title&quot;, word));
+        }
+        searchSourceBuilder.query(boolQueryBuilder);
+    } else {
+        MatchQueryBuilder matchQueryBuilder = new MatchQueryBuilder(&quot;title&quot;, keyword);
+        matchQueryBuilder.minimumShouldMatch(&quot;2&lt;50%&quot;);
+        searchSourceBuilder.query(matchQueryBuilder);
+    }
+    searchSourceBuilder.from(pageNo * pageSize);
+    searchSourceBuilder.size(pageSize);
+    searchSourceBuilder.highlighter(new HighlightBuilder()
+            .field(&quot;title&quot;)
+            .preTags(&quot;&lt;p class=\&quot;highlight\&quot;&gt;&quot;)
+            .postTags(&quot;&lt;/p&gt;&quot;));
+
+    request.source(searchSourceBuilder);
+    try {
+        SearchResponse response = client.search(request, RequestOptions.DEFAULT);
+        Map&lt;String, Object&gt; result = new HashMap&lt;&gt;();
+        List&lt;Map&lt;String, Object&gt;&gt; list = new ArrayList&lt;&gt;();
+        response.getHits().forEach(item -&gt; {
+            Map&lt;String, Object&gt; map = item.getSourceAsMap();
+            // 返回文本设置高亮
+            Map&lt;String, HighlightField&gt; highlight = item.getHighlightFields();
+            HighlightField name = highlight.get(&quot;title&quot;);
+            if (name != null){
+                Text[] fragments = name.fragments();
+                StringBuilder new_name = new StringBuilder();
+                for (Text text : fragments) {
+                    new_name.append(text);
+                }
+                map.put(&quot;title&quot;, new_name.toString());
+            }
+            list.add(map);
+        });
+        result.put(&quot;total&quot;, response.getHits().getTotalHits().value);
+        result.put(&quot;list&quot;, list);
+        return result;
+    } catch (IOException e) {
+        e.printStackTrace();
+        return null;
+    }
+}
+</code></pre>
+<blockquote>
+<p>Controller</p>
+</blockquote>
+<pre><code>@GetMapping(&quot;search/{keyword}/{pageNo}/{pageSize}&quot;)
+public R search(@PathVariable String keyword, @PathVariable Integer pageNo, 
+                @PathVariable Integer pageSize) {
+    return R.ok().data(contentService.search(keyword, pageNo, pageSize, true));
+}
+
+@GetMapping(&quot;searchList/{keyword}/{pageSize}&quot;)
+public R searchList(@PathVariable String keyword, @PathVariable Integer pageSize) {
+    return R.ok().data(contentService.search(keyword, 0, pageSize, false));
+}
+</code></pre>
+
+
+<h5 class="relative group">3. 前端页面 
+    <div id="3-%E5%89%8D%E7%AB%AF%E9%A1%B5%E9%9D%A2" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#3-%E5%89%8D%E7%AB%AF%E9%A1%B5%E9%9D%A2" aria-label="Anchor">#</a>
+    </span>        
+    
+</h5>
+<blockquote>
+<p>引入js文件</p>
+</blockquote>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/be809d514f7511b8932bc50544ccfc89_hu6297798660160748977.png 330w,
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/be809d514f7511b8932bc50544ccfc89_hu4215414324234225956.png 660w,
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/be809d514f7511b8932bc50544ccfc89_hu16440724500994001926.png 1024w,
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/be809d514f7511b8932bc50544ccfc89_hu10077574631544721971.png 2x"
+        src="/blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/be809d514f7511b8932bc50544ccfc89_hu4215414324234225956.png"
+        alt=""
+      />
+      
+    </figure>
+</p>
+<blockquote>
+<p>写Html</p>
+</blockquote>
+<pre><code>&lt;html lang=&quot;en&quot; xmlns:th=&quot;http://www.thymeleaf.org&quot;&gt;
+&lt;head&gt;
+    &lt;script src=&quot;/js/vue.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;/js/axios.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;/js/jquery.js&quot;&gt;&lt;/script&gt;
+    &lt;style&gt;
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        .nav {
+            width: 700px;
+            margin: 20px auto;
+            position: relative;
+        }
+        .nav input {
+            outline: none;
+            margin: 0;
+            box-sizing: border-box;
+            width: 70%;
+            height: 50px;
+            font-size: 22px;
+            display: inline-block;
+            vertical-align: bottom;
+            border: 4px solid rgb(255, 0, 0)
+        }
+        .nav button {
+            margin-left: -5px;
+            width: 15%;
+            height: 50px;
+            box-sizing: border-box;
+            display: inline-block;
+            vertical-align: bottom;
+            font-size: 18px;
+            background: rgb(255, 0, 0);
+            color: white;
+        }
+        .nav ul {
+            position: absolute;
+            top: 50px;
+            left: 0;
+            width: 595px;
+            background: white;
+            box-sizing: border-box;
+            border: 1px solid black;
+            padding: 0;
+            margin: 0;
+        }
+        .nav li {
+            list-style: none;
+            border-bottom: 1px solid grey;
+            text-overflow: ellipsis;
+            word-break: break-all;
+            white-space: nowrap;
+            overflow: hidden;
+            margin: 0 5px;
+            height: 40px;
+            line-height: 40px;
+            font-size: 18px;
+            transition: .2s;
+            cursor: pointer;
+        }
+        .nav li:hover {
+            background: rgb(230, 230, 230);
+        }
+        .nav li .highlight {
+            color: red;
+            display: inline;
+        }
+        .nav li p {
+            margin: 0;
+        }
+        .main {
+            width: 90%;
+            margin: 20px auto;
+            display: flex;
+            justify-content: left;
+            flex-wrap: wrap;
+        }
+        .box {
+            border: 1px solid white;
+            width: 230px;
+            height: 300px;
+            margin: 5px;
+            box-sizing: border-box;
+            transition: .3s;
+        }
+        .box:hover {
+            box-shadow: 0px 0px 8px gray;
+        }
+        .box img {
+            width: 220px;
+            margin-left: 5px;
+        }
+        .price {
+            color: rgb(255, 31, 38);
+            font-size: 20px;
+            font-weight: 550;
+            margin: 0 10px;
+        }
+        .title {
+            margin: 0 5px;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
+        }
+        .title p {
+            display: inline;
+        }
+        .title .highlight {
+            color: red;
+        }
+        .footer {
+            width: 50%;
+            margin: 20px auto;
+            display: flex;
+            justify-content: center;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div id=&quot;app&quot;&gt;
+    &lt;div class=&quot;nav&quot;&gt;
+        &lt;input type=&quot;text&quot; id=&quot;search&quot; v-model=&quot;keyword&quot;
+               @focusin=&quot;showSearchList&quot;
+               @focusout=&quot;() =&gt; {if(!this.focus)this.searchListVisible=false}&quot;
+               @keyup=&quot;handleKeyUp&quot;
+        &gt;
+        &lt;button @click=&quot;search(1)&quot;&gt;搜索&lt;/button&gt;
+        &lt;ul v-show=&quot;searchListVisible&amp;&amp;this.keyword&quot; @mouseenter=&quot;()=&gt;{this.focus=true}&quot; @mouseleave=&quot;()=&gt;{this.focus=false}&quot;&gt;
+            &lt;li v-for=&quot;item in searchList&quot; v-html=&quot;item.title&quot; @click=&quot;setKeyword(item.title)&quot;&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+    &lt;h1 style=&quot;text-align:center;margin-top:150px&quot; v-if=&quot;!list[0]&quot;&gt;暂无数据&lt;/h1&gt;
+    &lt;div class=&quot;main&quot;&gt;
+        &lt;div class=&quot;box&quot; v-for=&quot;goods in list&quot;&gt;
+            &lt;img v-bind:src=&quot;goods.img&quot;&gt;
+            &lt;p class=&quot;price&quot; v-text=&quot;goods.price&quot;&gt;￥122&lt;/p&gt;
+            &lt;p class=&quot;title&quot; v-bind:title=&quot;goods.title.replaceAll(/&lt;.*?&gt;/ig,'')&quot; v-html=&quot;goods.title&quot;&gt;标题&lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;footer&quot; v-if=&quot;list[0]&quot;&gt;
+        &lt;button @click=&quot;lastPage&quot;&gt;上一页&lt;/button&gt;
+        &lt;button v-for=&quot;i in pageNum&quot; @click=&quot;search(i)&quot; :disabled=&quot;i==pageNo&quot;&gt;{{i}}&lt;/button&gt;
+        &lt;button @click=&quot;nextPage&quot;&gt;下一页&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;script&gt;
+    new Vue({
+        el: '#app',
+        data: {
+            keyword: '',
+            pageNo: 0,
+            pageSize: 30,
+            total: 0,
+            pageNum: 0,
+            list: [],
+            searchList: [],
+            searchListVisible: false,
+            focus: false,
+            compositionStart: false
+        },
+        created() {
+        },
+        mounted() {
+            $('#search').on('compositionstart', e =&gt; {
+                this.compositionStart = true
+            }).on('compositionend', e =&gt; {
+                this.compositionStart = false
+                this.updateSearchList()
+            })
+        },
+        methods: {
+            search(pageNo = 1) {
+                if (!this.keyword) {
+                    return
+                }
+                this.pageNo = pageNo
+                axios.get(`search/${this.keyword}/${pageNo-1}/${this.pageSize}`).then(resp =&gt; {
+                    this.list = resp.data.data.list
+                    this.total = resp.data.data.total
+                    this.pageNum = Math.max(Math.floor(this.total / this.pageSize), 1)
+                    this.searchListVisible = false
+                }).catch(err =&gt; {
+                    console.log(err)
+                })
+            },
+            showSearchList() {
+                if (this.keyword) {
+                    this.searchListVisible = true
+                }
+            },
+            updateSearchList() {
+                if (this.keyword) { //有内容 去搜索
+                    let pageSize = 10
+                    axios.get(`searchList/${this.keyword}/${pageSize}`).then(resp =&gt; {
+                        this.searchList = resp.data.data.list
+                        this.searchListVisible = true
+                    }).catch(err =&gt; {
+                        console.log(err)
+                    })
+                } else {
+                    this.searchList = []
+                    this.searchListVisible = false
+                }
+            },
+            handleKeyUp(e) {
+                if (e.keyCode == 13) { // 回车
+                    this.search(1)
+                } else if (e.keyCode == 8) { // 删除
+                    this.updateSearchList()
+                } else {
+                    if (!this.compositionStart) {
+                        this.updateSearchList()
+                    }
+                }
+            },
+            setKeyword(keyword) {
+                this.keyword = keyword.replaceAll(/&lt;.*?&gt;/ig, '')
+                this.search()
+            },
+            lastPage() {
+                if (this.pageNo &gt; 1) {
+                    this.search(this.pageNo - 1)
+                }
+            },
+            nextPage() {
+                if (this.pageNo &lt; this.pageNum) {
+                    this.search(this.pageNo + 1)
+                }
+            }
+        }
+    })
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+
+<h5 class="relative group">4. 最终效果 
+    <div id="4-%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#4-%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C" aria-label="Anchor">#</a>
+    </span>        
+    
+</h5>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        srcset="
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/975360bc6f5384a1e3e54d934829e576_hu14608150849170446241.png 330w,
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/975360bc6f5384a1e3e54d934829e576_hu6142829204183719297.png 660w,
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/975360bc6f5384a1e3e54d934829e576_hu17116034785474292513.png 1024w,
+        /blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/975360bc6f5384a1e3e54d934829e576_hu1926470426255323274.png 2x"
+        src="/blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/assets/975360bc6f5384a1e3e54d934829e576_hu6142829204183719297.png"
+        alt="在这里插入图片描述"
+      />
+      
+    </figure>
+</p>
+<p>学到了 感谢狂神</p>
+
+          
+          
+          
+        </div>
+        
+        
+
+        
+        
+  
+  <section class="flex flex-row flex-wrap justify-center pt-4 text-xl">
+    
+      
+      <a
+      target="_blank"
+      class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+      href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://gwen0x4c3.github.io/blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/&amp;title=ElasticSearch%e4%b8%aa%e4%ba%ba%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%20%e7%8b%82%e7%a5%9e%e8%af%b4"
+      title="Share on LinkedIn"
+      aria-label="Share on LinkedIn"
+      >
+      
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+
+  </span>
+
+
+    </a>
+      
+    
+      
+      <a
+      target="_blank"
+      class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+      href="https://twitter.com/intent/tweet/?url=https://gwen0x4c3.github.io/blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/&amp;text=ElasticSearch%e4%b8%aa%e4%ba%ba%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%20%e7%8b%82%e7%a5%9e%e8%af%b4"
+      title="Tweet on Twitter"
+      aria-label="Tweet on Twitter"
+      >
+      
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"/></svg>
+  </span>
+
+
+    </a>
+      
+    
+      
+      <a
+      target="_blank"
+      class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+      href="https://api.whatsapp.com/send?text=https://gwen0x4c3.github.io/blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/&amp;resubmit=true&amp;title=ElasticSearch%e4%b8%aa%e4%ba%ba%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%20%e7%8b%82%e7%a5%9e%e8%af%b4"
+      title="Share via WhatsApp"
+      aria-label="Share via WhatsApp"
+      >
+      
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
+
+  </span>
+
+
+    </a>
+      
+    
+      
+      <a
+      target="_blank"
+      class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+      href="https://pinterest.com/pin/create/bookmarklet/?url=https://gwen0x4c3.github.io/blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/&amp;description=ElasticSearch%e4%b8%aa%e4%ba%ba%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%20%e7%8b%82%e7%a5%9e%e8%af%b4"
+      title="Pin on Pinterest"
+      aria-label="Pin on Pinterest"
+      >
+      
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M496 256c0 137-111 248-248 248-25.6 0-50.2-3.9-73.4-11.1 10.1-16.5 25.2-43.5 30.8-65 3-11.6 15.4-59 15.4-59 8.1 15.4 31.7 28.5 56.8 28.5 74.8 0 128.7-68.8 128.7-154.3 0-81.9-66.9-143.2-152.9-143.2-107 0-163.9 71.8-163.9 150.1 0 36.4 19.4 81.7 50.3 96.1 4.7 2.2 7.2 1.2 8.3-3.3.8-3.4 5-20.3 6.9-28.1.6-2.5.3-4.7-1.7-7.1-10.1-12.5-18.3-35.3-18.3-56.6 0-54.7 41.4-107.6 112-107.6 60.9 0 103.6 41.5 103.6 100.9 0 67.1-33.9 113.6-78 113.6-24.3 0-42.6-20.1-36.7-44.8 7-29.5 20.5-61.3 20.5-82.6 0-19-10.2-34.9-31.4-34.9-24.9 0-44.9 25.7-44.9 60.2 0 22 7.4 36.8 7.4 36.8s-24.5 103.8-29 123.2c-5 21.4-3 51.6-.9 71.2C65.4 450.9 0 361.1 0 256 0 119 111 8 248 8s248 111 248 248z"/></svg>
+
+  </span>
+
+
+    </a>
+      
+    
+      
+      <a
+      target="_blank"
+      class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+      href="https://reddit.com/submit/?url=https://gwen0x4c3.github.io/blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/&amp;resubmit=true&amp;title=ElasticSearch%e4%b8%aa%e4%ba%ba%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%20%e7%8b%82%e7%a5%9e%e8%af%b4"
+      title="Submit to Reddit"
+      aria-label="Submit to Reddit"
+      >
+      
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M201.5 305.5c-13.8 0-24.9-11.1-24.9-24.6 0-13.8 11.1-24.9 24.9-24.9 13.6 0 24.6 11.1 24.6 24.9 0 13.6-11.1 24.6-24.6 24.6zM504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-132.3-41.2c-9.4 0-17.7 3.9-23.8 10-22.4-15.5-52.6-25.5-86.1-26.6l17.4-78.3 55.4 12.5c0 13.6 11.1 24.6 24.6 24.6 13.8 0 24.9-11.3 24.9-24.9s-11.1-24.9-24.9-24.9c-9.7 0-18 5.8-22.1 13.8l-61.2-13.6c-3-.8-6.1 1.4-6.9 4.4l-19.1 86.4c-33.2 1.4-63.1 11.3-85.5 26.8-6.1-6.4-14.7-10.2-24.1-10.2-34.9 0-46.3 46.9-14.4 62.8-1.1 5-1.7 10.2-1.7 15.5 0 52.6 59.2 95.2 132 95.2 73.1 0 132.3-42.6 132.3-95.2 0-5.3-.6-10.8-1.9-15.8 31.3-16 19.8-62.5-14.9-62.5zM302.8 331c-18.2 18.2-76.1 17.9-93.6 0-2.2-2.2-6.1-2.2-8.3 0-2.5 2.5-2.5 6.4 0 8.6 22.8 22.8 87.3 22.8 110.2 0 2.5-2.2 2.5-6.1 0-8.6-2.2-2.2-6.1-2.2-8.3 0zm7.7-75c-13.6 0-24.6 11.1-24.6 24.9 0 13.6 11.1 24.6 24.6 24.6 13.8 0 24.9-11.1 24.9-24.6 0-13.8-11-24.9-24.9-24.9z"/></svg>
+
+  </span>
+
+
+    </a>
+      
+    
+      
+      <a
+      target="_blank"
+      class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+      href="https://www.facebook.com/sharer/sharer.php?u=https://gwen0x4c3.github.io/blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/&amp;quote=ElasticSearch%e4%b8%aa%e4%ba%ba%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%20%e7%8b%82%e7%a5%9e%e8%af%b4"
+      title="Share on Facebook"
+      aria-label="Share on Facebook"
+      >
+      
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"/></svg>
+
+  </span>
+
+
+    </a>
+      
+    
+      
+      <a
+      target="_blank"
+      class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+      href="mailto:?body=https://gwen0x4c3.github.io/blog/posts/java/elasticsearch%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%8B%82%E7%A5%9E%E8%AF%B4/&amp;subject=ElasticSearch%e4%b8%aa%e4%ba%ba%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%20%e7%8b%82%e7%a5%9e%e8%af%b4"
+      title="Send via email"
+      aria-label="Send via email"
+      >
+      
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M207.8 20.73c-93.45 18.32-168.7 93.66-187 187.1c-27.64 140.9 68.65 266.2 199.1 285.1c19.01 2.888 36.17-12.26 36.17-31.49l.0001-.6631c0-15.74-11.44-28.88-26.84-31.24c-84.35-12.98-149.2-86.13-149.2-174.2c0-102.9 88.61-185.5 193.4-175.4c91.54 8.869 158.6 91.25 158.6 183.2l0 16.16c0 22.09-17.94 40.05-40 40.05s-40.01-17.96-40.01-40.05v-120.1c0-8.847-7.161-16.02-16.01-16.02l-31.98 .0036c-7.299 0-13.2 4.992-15.12 11.68c-24.85-12.15-54.24-16.38-86.06-5.106c-38.75 13.73-68.12 48.91-73.72 89.64c-9.483 69.01 43.81 128 110.9 128c26.44 0 50.43-9.544 69.59-24.88c24 31.3 65.23 48.69 109.4 37.49C465.2 369.3 496 324.1 495.1 277.2V256.3C495.1 107.1 361.2-9.332 207.8 20.73zM239.1 304.3c-26.47 0-48-21.56-48-48.05s21.53-48.05 48-48.05s48 21.56 48 48.05S266.5 304.3 239.1 304.3z"/></svg>
+
+  </span>
+
+
+    </a>
+      
+    
+  </section>
+
+
+          
+      </div>
+     
+      
+      
+        
+        
+          
+          
+        
+      <script>
+        var oid = "views_posts\\java\\ElasticSearch个人学习笔记 狂神说\\index.md"
+        var oid_likes = "likes_posts\\java\\ElasticSearch个人学习笔记 狂神说\\index.md"
+      </script>
+      
+      
+      <script type="text/javascript" src="/blog/js/page.min.0860cf4e04fa2d72cc33ddba263083464d48f67de06114529043cb4623319efed4f484fd7f1730df5abea0e2da6f3538855634081d02f2d6e920b956f063e823.js" integrity="sha512-CGDPTgT6LXLMM926JjCDRk1I9n3gYRRSkEPLRiMxnv7U9IT9fxcw31q&#43;oOLabzU4hVY0CB0C8tbpILlW8GPoIw=="></script>
+      
+  
+    </section>
+  <footer class="pt-8 max-w-prose print:hidden">
+
+    
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="flex group mr-3" href="/blog/posts/java/c&#43;&#43;%E4%B8%8Ejava-socket%E9%80%9A%E4%BF%A1%E4%BD%BF%E7%94%A8protobuf/">
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >C++与Java Socket通信使用Protobuf</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2022-04-11T00:00:00&#43;00:00">11 April 2022</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+            <a class="flex text-right group ml-3" href="/blog/posts/middleware/%E4%BD%BF%E7%94%A8docker%E9%85%8D%E7%BD%AEredis-sentinel%E5%93%A8%E5%85%B5/">
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >使用Docker配置redis sentinel哨兵</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2022-05-21T00:00:00&#43;00:00">21 May 2022</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+            </a>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+    
+  </footer>
+</article>
+
+      <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0">
+  <a href="#the-top"
+    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="Scroll to top" title="Scroll to top">
+    &uarr;
+  </a>
+</div>
+    </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+    
+    <nav class="flex flex-row pb-4 text-base font-medium text-neutral-500 dark:text-neutral-400">
+      <ul class="flex flex-col list-none sm:flex-row">
+        
+        <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+          <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/blog/tags/"
+            title="">
+            
+            Tags
+          </a>
+        </li>
+        
+      </ul>
+    </nav>
+    
+  
+  <div class="flex items-center justify-between">
+
+    
+    
+
+    
+    
+    <p class="text-xs text-neutral-500 dark:text-neutral-400">
+      
+      
+      Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a>
+    </p>
+    
+
+  </div>
+  <script>
+    
+    mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+      margin: 24,
+      background: 'rgba(0,0,0,0.5)',
+      scrollOffset: 0,
+    })
+    
+  </script>
+  
+  
+  <script type="text/javascript" src="/blog/js/process.min.ee03488f19c93c2efb199e2e3014ea5f3cb2ce7d45154adb3399a158cac27ca52831db249ede5bb602700ef87eb02434139de0858af1818ab0fb4182472204a4.js" integrity="sha512-7gNIjxnJPC77GZ4uMBTqXzyyzn1FFUrbM5mhWMrCfKUoMdsknt5btgJwDvh&#43;sCQ0E53ghYrxgYqw&#43;0GCRyIEpA=="></script>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
+  data-url="https://gwen0x4c3.github.io/blog/"
+  style="z-index:500"
+>
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)"
+      >
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+  </div>
+</body>
+
+</html>
