@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Kubernetes on Gwen&#39;s Blog</title>
-    <link>https://gwen0x4c3.github.io/tags/kubernetes/</link>
+    <link>https://gwen0x4c3.github.io/blog/tags/kubernetes/</link>
     <description>Recent content in Kubernetes on Gwen&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     
-    <lastBuildDate>Wed, 04 Dec 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://gwen0x4c3.github.io/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 04 Dec 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://gwen0x4c3.github.io/blog/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Kubernetes Basics</title>
-      <link>https://gwen0x4c3.github.io/posts/cloud-native/k8s%E5%AD%A6%E4%B9%A0/</link>
+      <link>https://gwen0x4c3.github.io/blog/posts/cloud-native/k8s%E5%AD%A6%E4%B9%A0/</link>
       <pubDate>Wed, 04 Dec 2024 00:00:00 +0000</pubDate>
       
-      <guid>https://gwen0x4c3.github.io/posts/cloud-native/k8s%E5%AD%A6%E4%B9%A0/</guid>
+      <guid>https://gwen0x4c3.github.io/blog/posts/cloud-native/k8s%E5%AD%A6%E4%B9%A0/</guid>
       <description>Some basic instructions and knowledge about Kubernetes and KuberSphere</description>
       
     </item>
